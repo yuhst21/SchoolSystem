@@ -11,10 +11,27 @@ import java.util.ArrayList;
  * @author win
  */
 public class Department {
+
     private int depid;
     private String depname;
-    private ArrayList<Student> stulist ;
+    private ArrayList<Student> stulist;
     private ArrayList<Lecture> leclist;
+
+    public int getDepid() {
+        return depid;
+    }
+
+    public void setDepid(int depid) {
+        this.depid = depid;
+    }
+
+    public String getDepname() {
+        return depname;
+    }
+
+    public void setDepname(String depname) {
+        this.depname = depname;
+    }
 
     public ArrayList<Student> getStulist() {
         return stulist;
@@ -32,21 +49,5 @@ public class Department {
         this.leclist = leclist;
     }
 
-    
-    public int getDepid() {
-        return depid;
-    }
-
-    public void setDepid(int depid) {
-        this.depid = depid;
-    }
-
-    public String getDepname() {
-        return depname;
-    }
-
-    public void setDepname(String depname) {
-        this.depname = depname;
-    }
-    
+ 
 }
