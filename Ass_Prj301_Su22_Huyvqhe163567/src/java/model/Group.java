@@ -4,18 +4,30 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author win
  */
 public class Group {
+
     private int gid;
     private String gname;
     private Lecture lec;
     private Subject sub;
+    private ArrayList<Enroll> enroll;
 
     public int getGid() {
         return gid;
+    }
+
+    public ArrayList<Enroll> getEnroll() {
+        return enroll;
+    }
+
+    public void setEnroll(ArrayList<Enroll> enroll) {
+        this.enroll = enroll;
     }
 
     public void setGid(int gid) {
@@ -45,5 +57,5 @@ public class Group {
     public void setSub(Subject sub) {
         this.sub = sub;
     }
-    
+
 }
