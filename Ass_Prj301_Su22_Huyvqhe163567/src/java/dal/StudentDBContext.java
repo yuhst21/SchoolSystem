@@ -4,7 +4,6 @@
  */
 package dal;
 
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,8 +34,8 @@ public class StudentDBContext extends DBContext<Student> {
                 s.setSgender(rs.getBoolean("sgender"));
                 s.setSdob(rs.getDate("sdob"));
                 Department d = new Department();
-                d.setDepid(rs.getInt("did"));
-                d.setDepname(rs.getString("dname"));
+                d.setDepid(rs.getInt("depid"));
+                d.setDepname(rs.getString("depname"));
                 s.setDep(d);
                 stu.add(s);
             }
@@ -62,8 +61,8 @@ public class StudentDBContext extends DBContext<Student> {
                 s.setSgender(rs.getBoolean("sgender"));
                 s.setSdob(rs.getDate("sdob"));
                 Department d = new Department();
-                d.setDepid(rs.getInt("did"));
-                d.setDepname(rs.getString("dname"));
+                d.setDepid(rs.getInt("depid"));
+                d.setDepname(rs.getString("depname"));
                 s.setDep(d);
                 return s;
             }

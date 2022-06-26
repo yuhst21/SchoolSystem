@@ -27,8 +27,8 @@ public class DepartmentDBContext extends DBContext<Department> {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Department d = new Department();
-                d.setDepid(rs.getInt("did"));
-                d.setDepname(rs.getString("dname"));
+                d.setDepid(rs.getInt("depid"));
+                d.setDepname(rs.getString("depname"));
                 dept.add(d);
 
             }
@@ -48,8 +48,8 @@ public class DepartmentDBContext extends DBContext<Department> {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Department d = new Department();
-                d.setDepid(rs.getInt("did"));
-                d.setDepname(rs.getString("dname"));
+                d.setDepid(rs.getInt("depid"));
+                d.setDepname(rs.getString("depname"));
                 return d;
             }
 
