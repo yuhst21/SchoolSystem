@@ -17,7 +17,7 @@ public class Test {
         StudentDBContext db = new StudentDBContext();
         ArrayList<Student> s = db.list();
         for (Student stu : s) {
-            System.out.println(stu.getSid() + stu.getSname());
+            Student st = db.get(stu);
         }
     }
 }
