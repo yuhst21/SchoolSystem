@@ -11,10 +11,10 @@
 <body>
     <table border="1">
         <thead>
-            <tr id="head">
+            <tr id="head" >
                 <script>
                     var content = document.getElementById("head");
-                    var html = "<td>No</td>  <td>Group</td> <td>Code</td> <td>Name</td>";
+                    var html = "<td >No</td>  <td>Group</td> <td>Code</td> <td>Name</td>";
                     for (let index = 1; index < 16; index++) {
                         html += "<td>Slot " + index + " </td>";
                     }
@@ -27,7 +27,7 @@
                 <td>1</td>
                 <td>SE1631</td>
                 <td>HE163611</td>
-                <td>Doan Manh Hung</td>
+                <td>Vu Quang Huy</td>
                 <script>
                     var content = document.getElementById("body");
                     var html = "";
@@ -40,7 +40,7 @@
                 </script>
             </tr>
             <tr id="body2">
-                <td>1</td>
+                <td>2</td>
                 <td>SE1631</td>
                 <td>HE163611</td>
                 <td>Doan Manh Hung</td>
@@ -56,7 +56,7 @@
                 </script>
             </tr>
             <tr id="body3">
-                <td>1</td>
+                <td>3</td>
                 <td>SE1631</td>
                 <td>HE163611</td>
                 <td>Doan Manh Hung</td>
@@ -72,7 +72,7 @@
                 </script>
             </tr>
             <tr id="body4">
-                <td>1</td>
+                <td>4</td>
                 <td>SE1631</td>
                 <td>HE163611</td>
                 <td>Doan Manh Hung</td>
@@ -88,7 +88,7 @@
                 </script>
             </tr>
             <tr id="body5">
-                <td>1</td>
+                <td>5</td>
                 <td>SE1631</td>
                 <td>HE163611</td>
                 <td>Doan Manh Hung</td>
@@ -96,7 +96,7 @@
                     var content = document.getElementById("body5");
                     var html = "";
                     for (let i = 1; i < 16; i++) {
-                        if (i % 2 == 0) {
+                        if (i % 2 != 0) {
                             html += "<td>present</td>";
                         } else html += "<td>absent</td>";
                     }
