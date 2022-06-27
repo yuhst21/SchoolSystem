@@ -16,18 +16,9 @@ public class Group {
     private String gname;
     private Lecture lec;
     private Subject sub;
-    private ArrayList<Enroll> enroll;
 
     public int getGid() {
         return gid;
-    }
-
-    public ArrayList<Enroll> getEnroll() {
-        return enroll;
-    }
-
-    public void setEnroll(ArrayList<Enroll> enroll) {
-        this.enroll = enroll;
     }
 
     public void setGid(int gid) {

@@ -10,10 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Enroll;
 import model.Group;
 import model.Lecture;
-import model.Student;
 import model.Subject;
 
 /**
@@ -48,13 +46,7 @@ public class GroupDBContext extends DBContext<Group> {
                 Lecture l = new Lecture();
                 l.setLid(rs.getInt("lid"));
                 l.setLname(rs.getString("lname"));
-                g.setLec(l);
-                Student stu = new Student();
-                stu.setSid(rs.getInt("sid"));
-                stu.setSname(rs.getString("sname"));
-                Enroll e = new Enroll();
-                e.setStudent(stu);
-             
+                g.setLec(l);                             
                 group.add(g);
             }
             return group;
@@ -92,16 +84,13 @@ public class GroupDBContext extends DBContext<Group> {
                 l.setLid(rs.getInt("lid"));
                 l.setLname(rs.getString("lname"));
                 g.setLec(l);
-                Student stu = new Student();
-                stu.setSid(rs.getInt("sid"));
-                stu.setSname(rs.getString("sname"));
-                Enroll e = new Enroll();
-                e.setStudent(stu);
+                return g;
 
             }
         } catch (SQLException ex) {
             Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
     @Override
