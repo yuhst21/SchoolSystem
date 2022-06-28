@@ -11,13 +11,13 @@ import java.sql.Date;
  * @author win
  */
 public class Session {
-    private int sessionid ;
+
+    private int sessionid;
     private String sessionname;
-    private Room roomid;
-    private Slot slotid;
-    private Group gid;
-    private Date sessionstart;
-    private Date sessionend;
+    private Room room;
+    private Slot slot;
+    private Group group;
+    private Date date;
 
     public int getSessionid() {
         return sessionid;
@@ -35,44 +35,36 @@ public class Session {
         this.sessionname = sessionname;
     }
 
-    public Room getRoomid() {
-        return roomid;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomid(Room roomid) {
-        this.roomid = roomid;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public Slot getSlotid() {
-        return slotid;
+    public Slot getSlot() {
+        return slot;
     }
 
-    public void setSlotid(Slot slotid) {
-        this.slotid = slotid;
+    public void setSlot(Slot slot) {
+        this.slot = slot;
     }
 
-    public Group getGid() {
-        return gid;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGid(Group gid) {
-        this.gid = gid;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
-    public Date getSessionstart() {
-        return sessionstart;
+    public Date getDate() {
+        return date;
     }
 
-    public void setSessionstart(Date sessionstart) {
-        this.sessionstart = sessionstart;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Date getSessionend() {
-        return sessionend;
-    }
-
-    public void setSessionend(Date sessionend) {
-        this.sessionend = sessionend;
-    }
-    
 }

@@ -4,8 +4,10 @@
  */
 package Test;
 
+import dal.SessionDBContext;
 import dal.StudentDBContext;
 import java.util.ArrayList;
+import model.Session;
 import model.Student;
 
 /**
@@ -14,10 +16,10 @@ import model.Student;
  */
 public class Test {
     public static void main(String[] args) {
-        StudentDBContext db = new StudentDBContext();
-        ArrayList<Student> s = db.list();
-        for (Student stu : s) {
-            Student st = db.get(stu);
+        SessionDBContext sdb = new  SessionDBContext();
+        ArrayList<Session> s = sdb.list();
+        for (Session ss : s) {
+            System.out.println(ss.getRoom().getRoomid());
         }
     }
 }
