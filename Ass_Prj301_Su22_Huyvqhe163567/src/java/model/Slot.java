@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 /**
  *
@@ -13,8 +14,8 @@ import java.sql.Date;
 public class Slot {
     private int slotid;
     private String slotname;
-    private Date slotstart;
-    private Date slotend;
+    private Time slotstart;
+    private Time slotend;
 
     public int getSlotid() {
         return slotid;
@@ -32,20 +33,22 @@ public class Slot {
         this.slotname = slotname;
     }
 
-    public Date getSlotstart() {
+    public Time getSlotstart() {
         return slotstart;
     }
 
-    public void setSlotstart(Date slotstart) {
+    public void setSlotstart(Time slotstart) {
         this.slotstart = slotstart;
     }
 
-    public Date getSlotend() {
+    public Time getSlotend() {
         return slotend;
     }
 
-    public void setSlotend(Date slotend) {
+    public void setSlotend(Time slotend) {
         this.slotend = slotend;
     }
+
+
     
 }

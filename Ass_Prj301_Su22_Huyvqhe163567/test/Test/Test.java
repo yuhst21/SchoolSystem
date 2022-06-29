@@ -4,10 +4,9 @@
  */
 package Test;
 
-import dal.SessionDBContext;
+import dal.SlotDBContext;
 import java.util.ArrayList;
-import model.Session;
-import model.Student;
+import model.Slot;
 
 /**
  *
@@ -15,10 +14,10 @@ import model.Student;
  */
 public class Test {
     public static void main(String[] args) {
-        SessionDBContext sdb = new  SessionDBContext();
-        ArrayList<Session> s = sdb.list();
-        for (Session ss : s) {
-            System.out.println(ss.getSlot().getSlotstart());
+        SlotDBContext sdb = new SlotDBContext();
+        ArrayList<Slot> slot = sdb.list();
+        for (Slot s : slot) {
+            System.out.println(s.getSlotname());
         }
     }
 }

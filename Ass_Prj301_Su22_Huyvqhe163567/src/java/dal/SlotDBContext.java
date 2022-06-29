@@ -29,8 +29,8 @@ public class SlotDBContext extends DBContext<Slot> {
                 Slot s = new Slot();
                 s.setSlotid(rs.getInt("slotid"));
                 s.setSlotname(rs.getString("slotname"));
-                s.setSlotstart(rs.getDate("slotstart"));
-                s.setSlotend(rs.getDate("slotend"));
+                s.setSlotstart(rs.getTime("slotstart"));
+                s.setSlotend(rs.getTime("slotend"));
                 slot.add(s);
             }
             return slot;
@@ -52,8 +52,8 @@ public class SlotDBContext extends DBContext<Slot> {
                 Slot s = new Slot();
                 s.setSlotid(rs.getInt("slotid"));
                 s.setSlotname(rs.getString("slotname"));
-                s.setSlotstart(rs.getDate("slotstart"));
-                s.setSlotend(rs.getDate("slotend"));
+                s.setSlotstart(rs.getTime("slotstart"));
+                s.setSlotend(rs.getTime("slotend"));
                 return s;
             }
         } catch (SQLException ex) {
