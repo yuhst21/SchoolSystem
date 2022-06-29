@@ -32,10 +32,12 @@ public class SessionDBContext extends DBContext<Session> {
 
         ArrayList<Session> session = new ArrayList<>();
         try {
-            String sql = "select s.sessionid,s.roomid,r.roomname,s.slotid,sl.slotname,g.gid,g.gname,g.lid,g.lid,s.[date] from [Session] s \n"
+            String sql = "select s.sessionid,s.roomid,r.roomname,s.slotid,sl.slotname,g.gid,g.gname,g.lid,l.lname,g.subjectid,sub.subjectname,s.[date] from [Session] s \n"
                     + "inner join Room r on s.roomid = r.roomid\n"
                     + "inner join Slot sl on s.slotid = sl.slotid\n"
-                    + "inner join [Group] g on s.gid = g.gid";
+                    + "inner join [Group] g on s.gid = g.gid\n"
+                    + "inner join Lecture l on g.lid = l.lid\n"
+                    + "inner join [Subject] sub on g.subjectid = sub.subjectid";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -60,6 +62,7 @@ public class SessionDBContext extends DBContext<Session> {
                 sub.setSubjectid(rs.getInt("subjectid"));
                 sub.setSubjectname(rs.getString("subjectname"));
                 g.setSub(sdb.get(sub));
+                s.setGroup(g);
                 s.setDate(rs.getDate("date"));
                 session.add(s);
 
@@ -74,11 +77,13 @@ public class SessionDBContext extends DBContext<Session> {
     @Override
     public Session get(Session entity) {
         try {
-            String sql = "select s.sessionid,s.roomid,r.roomname,s.slotid,sl.slotname,g.gid,g.gname,g.lid,g.lid,s.[date] from [Session] s \n"
+            String sql = "select s.sessionid,s.roomid,r.roomname,s.slotid,sl.slotname,g.gid,g.gname,g.lid,l.lname,g.subjectid,sub.subjectname,s.[date] from [Session] s \n"
                     + "inner join Room r on s.roomid = r.roomid\n"
                     + "inner join Slot sl on s.slotid = sl.slotid\n"
                     + "inner join [Group] g on s.gid = g.gid\n"
-                    + "where s.sessionid = ?";
+                    + "inner join Lecture l on g.lid = l.lid\n"
+                    + "inner join [Subject] sub on g.subjectid = sub.subjectid\n"
+                    + "where g.gid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, entity.getSessionid());
             ResultSet rs = stm.executeQuery();
@@ -104,6 +109,7 @@ public class SessionDBContext extends DBContext<Session> {
                 sub.setSubjectid(rs.getInt("subjectid"));
                 sub.setSubjectname(rs.getString("subjectname"));
                 g.setSub(sdb.get(sub));
+                s.setGroup(g);
                 s.setDate(rs.getDate("date"));
                 return s;
 

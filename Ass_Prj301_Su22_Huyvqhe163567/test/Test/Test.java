@@ -5,7 +5,6 @@
 package Test;
 
 import dal.SessionDBContext;
-import dal.StudentDBContext;
 import java.util.ArrayList;
 import model.Session;
 import model.Student;
@@ -19,7 +18,7 @@ public class Test {
         SessionDBContext sdb = new  SessionDBContext();
         ArrayList<Session> s = sdb.list();
         for (Session ss : s) {
-            System.out.println(ss.getRoom().getRoomid());
+            System.out.println(ss.getSlot().getSlotstart());
         }
     }
 }

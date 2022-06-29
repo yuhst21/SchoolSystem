@@ -10,8 +10,10 @@ package model;
  */
 public class Attendance {
     private int attendid;
-    private Student sid;
-    private Session sessionid;
+    private Student student;
+    private Session session;
+    private boolean attend;
+    private Lecture taker;
 
     public int getAttendid() {
         return attendid;
@@ -21,20 +23,38 @@ public class Attendance {
         this.attendid = attendid;
     }
 
-    public Student getSid() {
-        return sid;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setSid(Student sid) {
-        this.sid = sid;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public Session getSessionid() {
-        return sessionid;
+    public Session getSession() {
+        return session;
     }
 
-    public void setSessionid(Session sessionid) {
-        this.sessionid = sessionid;
+    public void setSession(Session session) {
+        this.session = session;
     }
+
+    public boolean isAttend() {
+        return attend;
+    }
+
+    public void setAttend(boolean attend) {
+        this.attend = attend;
+    }
+
+    public Lecture getTaker() {
+        return taker;
+    }
+
+    public void setTaker(Lecture taker) {
+        this.taker = taker;
+    }
+    
+
     
 }
