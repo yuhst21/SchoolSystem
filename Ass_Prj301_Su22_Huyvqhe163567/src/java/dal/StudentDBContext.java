@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Department;
+import model.Group;
 import model.Student;
 
 /**
@@ -18,7 +19,22 @@ import model.Student;
  * @author win
  */
 public class StudentDBContext extends DBContext<Student> {
-    
+     public ArrayList<Group> list(Student student) {
+        try {
+            student.setGroup(new ArrayList<>());
+            String sql = "";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, student.getSid());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+              
+              
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     @Override
     public ArrayList<Student> list() {
         ArrayList<Student> stu = new ArrayList<>();
