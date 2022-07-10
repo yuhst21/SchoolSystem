@@ -4,8 +4,10 @@
  */
 package Test;
 
+import dal.LectureDBContext;
 import dal.SlotDBContext;
 import java.util.ArrayList;
+import model.Lecture;
 import model.Slot;
 
 /**
@@ -18,6 +20,11 @@ public class Test {
         ArrayList<Slot> slot = sdb.list();
         for (Slot s : slot) {
             System.out.println(s.getSlotname());
+        }
+        LectureDBContext ldb = new LectureDBContext();
+        ArrayList<Lecture> lec = ldb.list();
+        for (Lecture l : lec) {
+            System.out.println(ldb.get(l).getLname());
         }
     }
 }

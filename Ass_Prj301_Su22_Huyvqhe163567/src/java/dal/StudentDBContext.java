@@ -18,7 +18,7 @@ import model.Student;
  * @author win
  */
 public class StudentDBContext extends DBContext<Student> {
-
+    
     @Override
     public ArrayList<Student> list() {
         ArrayList<Student> stu = new ArrayList<>();

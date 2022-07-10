@@ -15,10 +15,14 @@
     <body>
         <form action="lec" method="POST">
             Campus: <br/>
-            Lecture: <br/>
+            Lecture: <input type="text" name="lec"  > 
+            
+            <input type="submit" value="View" "><br/>
+            </form>
+            <c:if test="${requestScope.lectures ne null}">
             <table border="1">
                 <tr >
-                    <td rowspan="2"> Year:</br>
+                    <td rowspan="2"> Year:<br/>
                         Week:
                     </td>
                     <td>cell</td>
@@ -35,21 +39,13 @@
                         <c:forEach items="${requestScope.session}" var="ses">
                             <td>${ses.group.sub.subjectname} <br/>
                                 ${ses.room.roomname} <br/>
-
                             </td>
                         </c:forEach>
                     </tr>
 
                 </c:forEach>
-
-
-
-
-
-
-
             </table>
-
-        </form>
+            </c:if>
+       
     </body>
 </html>

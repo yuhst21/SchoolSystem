@@ -23,8 +23,8 @@ public class LectureDBContext extends DBContext<Lecture> {
     public ArrayList<Lecture> list() {
         ArrayList<Lecture> lec = new ArrayList<>();
         try {
-            String sql = "Select l.lid,l.lname,l.lgender,l.lcontract,l.depid,d.depname from  Lecture l inner join Department d\n"
-                    + "on l.depid = d.depid";
+            String sql = "SELECT l.[lid],l.[lname],l.[lgender],l.[lcontract],l.[depid],d.depname\n"
+                    + "  FROM [Lecture] l inner join Department d on l.depid = d.depid";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -37,6 +37,7 @@ public class LectureDBContext extends DBContext<Lecture> {
                 d.setDepid(rs.getInt("depid"));
                 d.setDepname(rs.getString("depname"));
                 l.setDept(d);
+                lec.add(l);
             }
             return lec;
         } catch (SQLException ex) {

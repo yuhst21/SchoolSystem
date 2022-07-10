@@ -5,6 +5,7 @@
 package model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +17,16 @@ public class Student {
     private boolean sgender;
     private Date sdob;
     private Department dep;
+    private ArrayList<Group> group;
+
+    public ArrayList<Group> getGroup() {
+        return group;
+    }
+
+    public void setGroup(ArrayList<Group> group) {
+        this.group = group;
+    }
+    
 
     public int getSid() {
         return sid;

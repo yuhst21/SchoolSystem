@@ -4,9 +4,17 @@
         <servlet-name>LectureController</servlet-name>
         <servlet-class>controller.LectureController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AttendController</servlet-name>
+        <servlet-class>controller.AttendController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LectureController</servlet-name>
         <url-pattern>/lec</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendController</servlet-name>
+        <url-pattern>/attend</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -4,6 +4,8 @@
     Author     : win
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +14,26 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <form action="attend" method="POST">
+            Attendance for <b>${sessionScope.subject.subjectname}</b> with lecturer <b>${sessionScope.lecturer.lname}</b>
+            <table>
+                <tr>
+                    <th style="border: solid;">NO</th>
+                    <th style="border: solid;">GROUP</th>
+                    <th style="border: solid;">CODE</th>
+                    <th style="border: solid;">NAME</th>
+                    <th style="border: solid;">IMAGE</th>
+                    <th style="border: solid;">STATUS</th>
+                    <th style="border: solid;">COMMENT</th>
+                    <th style="border: solid;">TAKER</th>
+                </tr>
+                <tr>
+                    <c:forEach items="${requestScope.group}" var="g">
+                    <td>cell</td>
+                    </c:forEach>
+                </tr>
+            </table>
+            
+        </form>
     </body>
 </html>
