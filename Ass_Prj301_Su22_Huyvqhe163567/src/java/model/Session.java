@@ -18,6 +18,25 @@ public class Session {
     private Slot slot;
     private Group group;
     private Date date;
+    private Lecture taker ;
+    private boolean status;
+
+    public Lecture getTaker() {
+        return taker;
+    }
+
+    public void setTaker(Lecture taker) {
+        this.taker = taker;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
 
     public int getSessionid() {
         return sessionid;
