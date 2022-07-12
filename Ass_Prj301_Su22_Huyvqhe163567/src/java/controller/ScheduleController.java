@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.DateTimeHandle;
 import dal.SessionDBContext;
 import dal.SlotDBContext;
 import java.io.IOException;
@@ -28,33 +29,8 @@ public class ScheduleController extends HttpServlet {
 
     SessionDBContext sessionDB = new SessionDBContext();
     SlotDBContext slotDB = new SlotDBContext();
-
-    public ArrayList<Week> getWeeksOfYear() {
-        ArrayList<Week> weeks = new ArrayList<>();
-        LocalDate startDate = LocalDate.parse("03-01-2022", DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        for (int i = 0; i < 365; i += 7) {
-            LocalDate endDate = startDate.plusDays(6);
-            Week week = new Week();
-            week.setStartDate(startDate);
-            week.setEndDate(endDate);
-            weeks.add(week);
-            startDate = endDate.plusDays(1);
-        }
-        return weeks;
-    }
-
-    public Week getWeekByDate(ArrayList<Week> weeks, LocalDate date) {
-        Week currentWeek = new Week();
-        for (Week w : weeks) {
-            for (int i = 0; i < 7; i++) {
-                if (w.getStartDate().plusDays(i).equals(date)) {
-                    currentWeek = w;
-                    break;
-                }
-            }
-        }
-        return currentWeek;
-    }
+    DateTimeHandle dateTime = new DateTimeHandle();
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -68,9 +44,9 @@ public class ScheduleController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        ArrayList<Week> weeks = getWeeksOfYear();
+        ArrayList<Week> weeks = dateTime.getWeeksOfYear();
         LocalDate currentDate = LocalDate.now();
-        Week currentWeek = getWeekByDate(weeks, currentDate);
+        Week currentWeek = dateTime.getWeekByDate(weeks, currentDate);
         //get session
         sessionDB = new SessionDBContext();
         Lecture lec = new Lecture();
@@ -101,7 +77,7 @@ public class ScheduleController extends HttpServlet {
         int index = Integer.parseInt(request.getParameter("week_index"));
         Week w = weeks.get(index);
         LocalDate currentDate = w.getStartDate();
-        Week currentWeek = getWeekByDate(weeks, currentDate);
+        Week currentWeek = dateTime.getWeekByDate(weeks, currentDate);
         //get session
         Lecture lec = new Lecture();
         lec.setLid(1);
