@@ -47,14 +47,12 @@ public class ScheduleController extends HttpServlet {
         ArrayList<Week> weeks = dateTime.getWeeksOfYear();
         LocalDate currentDate = LocalDate.now();
         Week currentWeek = dateTime.getWeekByDate(weeks, currentDate);
-        //get session
         sessionDB = new SessionDBContext();
         Lecture lec = new Lecture();
         lec.setLid(1);
         ArrayList<Session> 
          sessions = sessionDB.listSessionByLecture(lec, currentWeek.getStartDate(), currentWeek.getEndDate());
         session.setAttribute("weeks", weeks);
-        //set attributes
         request.setAttribute("slots", slotDB.list());
         request.setAttribute("date", currentDate);
         request.setAttribute("sessions", sessions);
@@ -78,11 +76,9 @@ public class ScheduleController extends HttpServlet {
         Week w = weeks.get(index);
         LocalDate currentDate = w.getStartDate();
         Week currentWeek = dateTime.getWeekByDate(weeks, currentDate);
-        //get session
         Lecture lec = new Lecture();
         lec.setLid(1);
         ArrayList<Session> sessions = sessionDB.listSessionByLecture(lec, currentWeek.getStartDate(), currentWeek.getEndDate());
-        //set attributes
         request.setAttribute("sessions", sessions);
         request.setAttribute("slots", slotDB.list());
         request.setAttribute("week", currentWeek);

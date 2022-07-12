@@ -21,17 +21,6 @@ import model.Week;
  */
 public class Test {
     public static void main(String[] args) {     
-        SessionDBContext sdb = new SessionDBContext();
-        ScheduleController s = new ScheduleController();
-        ArrayList<Week> weeks = s.getWeeksOfYear();
-        LocalDate currentDate = LocalDate.now();
-        Week currentWeek = s.getWeekByDate(weeks, currentDate);
-         Lecture lec = new Lecture();
-        lec.setLid(1);
-        ArrayList<Session> 
-         sessions = sdb.listSessionByLecture(lec, currentWeek.getStartDate(), currentWeek.getEndDate());
-        for (Session ses : sessions) {
-            System.out.println(ses.getClass());
-        }
+    
     }
 }
