@@ -28,7 +28,7 @@
                     <td rowspan="2">
                         Year: 2022 <br/>
                         Week:
-                        <select onchange="Select()" id="week" name="week_index">
+                        <select onchange="Select()">
                             <c:forEach items="${sessionScope.weeks}" var="w">
                                 <option  value="${sessionScope.weeks.indexOf(w)}"
                                          <c:forEach var="i" begin="0" end="6">
