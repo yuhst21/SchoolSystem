@@ -52,10 +52,9 @@
                 </tr>
                 <tr>                   
                     <c:forEach var="days" begin="1" end="7">
-                        <td>${requestScope.week.startDate.plusDays(days).getDayOfMonth()}
-                            /${requestScope.week.startDate.plusDays(days).getMonthValue()}</td>
-                        </c:forEach>
-                </tr
+                        <td>${requestScope.week.startDate.plusDays(days).getDayOfMonth()}/${requestScope.week.startDate.plusDays(days).getMonthValue()}</td>
+                    </c:forEach>
+                </tr>
                 <c:forEach items="${requestScope.slots}" var="slot">
                     <tr>
                         <td>${slot.slotname} </td>
@@ -72,7 +71,7 @@
                                           </c:if>
                                           <c:if test="${s.status eq true}">
                                               (attended)
-                                          </c:if>
+                                          </c:if>                        
                                     </c:if>
                                 </c:forEach> 
                             </td>
@@ -82,5 +81,5 @@
             </table>
         </form>
     </body>
-        <script src="/../js/schedule.js" type="text/javascript"></script>
+    <script src="js/schedule.js" type="text/javascript"></script>
 </html>

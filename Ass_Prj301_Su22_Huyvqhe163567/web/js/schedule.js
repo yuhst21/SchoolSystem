@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
- function Select() {
-                let form = document.getElementById("schedule_form");
-                form.submit();
-            }
+function Select() {
+    let form = document.getElementById("schedule_form");
+    form.submit();
+}
