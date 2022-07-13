@@ -71,15 +71,14 @@ public class AttendController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String sid = request.getParameter("sessionID");
+       
         Session s = new Session();
-        s.setSessionid(Integer.parseInt(sid));
+        s.setSessionid(7);
         Session session = dbSession.get(s);
         ArrayList<Student> students = dbStudent.list(session);
         request.setAttribute("students", students);
         request.setAttribute("session", s);
-        ArrayList<Attendance> attendExist = dbAttendance.existedAttendances(session);
-        request.setAttribute("attendExist", attendExist);
+      
         request.getRequestDispatcher("/View/Attendance/attendance.jsp").forward(request, response);
     }
 
