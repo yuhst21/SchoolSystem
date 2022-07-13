@@ -4,7 +4,6 @@
  */
 package dal;
 
-import jakarta.websocket.Session;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Department;
 import model.Group;
+import model.Session;
 import model.Student;
 
 /**
@@ -44,13 +44,14 @@ public class StudentDBContext extends DBContext<Student> {
         return null;
     }
 
-    public ArrayList<Student> list(Session ses) {
+    public ArrayList<Student> list(Session session) {
         ArrayList<Student> stu = new ArrayList<>();
         try {
             String sql = "select stu.[sid],stu.sname from Student stu inner join\n"
                     + "(select e.sid from Session s inner join Enroll e on s.gid=e.gid\n"
-                    + "where s.sessionID=? ) a on stu.[sid]=a.[sid]";
+                    + "where s.sessionID= ? ) a on stu.[sid]=a.[sid]";
             PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, session.getSessionid());
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Student s = new Student();
@@ -135,27 +136,6 @@ public class StudentDBContext extends DBContext<Student> {
 
     public Student get(int i) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public ArrayList<Student> list(model.Session session) {
-        ArrayList<Student> stu = new ArrayList<>();
-        try {
-            String sql = "select stu.[sid],stu.sname from Student stu inner join\n"
-                    + "(select e.sid from Session s inner join Enroll e on s.gid=e.gid\n"
-                    + "where s.sessionID=? ) a on stu.[sid]=a.[sid]";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Student s = new Student();
-                s.setSid(rs.getInt("sid"));
-                s.setSname(rs.getString("sname"));
-                stu.add(s);
-            }
-            return stu;
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 
 }

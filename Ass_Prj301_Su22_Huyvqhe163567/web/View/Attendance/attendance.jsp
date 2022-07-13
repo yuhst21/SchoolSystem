@@ -14,9 +14,45 @@
         <title>JSP Page</title>
     </head>
     <body>
-        test thoi 
+     
         <form action="attend" method="POST">
-          
+            <input type="hidden" value="${session.sessionid}" name="sessionID" />
+            <table border="2">
+                <tr >
+                    <td>
+                        Student ID
+                    </td>
+                    <td>
+                        Student Name
+                    </td>
+                    <td>
+                        Avatar
+                    </td>    
+                    <td>
+                        Status
+                    </td>
+                </tr>
+                <c:forEach var="stu" items="${requestScope.students}">
+                    <tr>
+                        <td>
+                            ${stu.sid}
+                            <input type="hidden"name="${stu.sid}" value="${stu.sid}">
+                        </td>
+                        <td>
+                            ${stu.sname}
+                            <input type="hidden"name="'studentName'+'${stu.sid}'" value="${stu.sname}">                        
+                        </td>                         
+                        <td>
+                            <img src="img/empty-avatar.jpg" alt=""/>
+                        </td>
+                       
+                        <td>
+                           
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table> </br>
+            <input type="submit" value="Save" />
            
             
         </form>

@@ -57,7 +57,7 @@ public class AttendDBContext extends DBContext<Attendance> {
         boolean checkExist = false;
         ArrayList<Attendance> attend = new ArrayList<>();
         try {
-            String sql = "select a.aid,a.[sid],a.attend from Attendance awhere sessionID= ?";
+            String sql = "select a.aid,a.[sid],a.attend from Attendance a where sessionID= ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, entity.getSessionid());
             ResultSet rs = stm.executeQuery();
