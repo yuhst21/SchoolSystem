@@ -17,7 +17,7 @@ import model.Slot;
  * @author win
  */
 public class SlotDBContext extends DBContext<Slot> {
-    
+
     @Override
     public ArrayList<Slot> list() {
         ArrayList<Slot> slot = new ArrayList<>();

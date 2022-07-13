@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Attendance;
 import model.Lecture;
-import model.Session;
 import model.Student;
 
 /**
@@ -32,7 +31,7 @@ public class AttendDBContext extends DBContext<Attendance> {
                     + "inner join Lecture l on a.taker = l.lid";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
+            while (rs.next()) {                
                 Attendance a = new Attendance();
                 a.setAttendid(rs.getInt("attendid"));
                 Student s = new Student();
@@ -46,38 +45,11 @@ public class AttendDBContext extends DBContext<Attendance> {
                 a.setTaker(ldb.get(l));
                 attend.add(a);
             }
-            return attend;
+           return attend;
         } catch (SQLException ex) {
             Logger.getLogger(AttendDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
-
-    public ArrayList<Attendance> existedAttendances(Session entity) {
-        boolean checkExist = false;
-        ArrayList<Attendance> attend = new ArrayList<>();
-        try {
-            String sql = "select a.aid,a.[sid],a.attend from Attendance awhere sessionID= ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, entity.getSessionid());
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                checkExist = true;
-                Attendance a = new Attendance();
-                a.setAttendid(rs.getInt("aid"));
-                Student s = new Student();
-                s.setSid(rs.getInt("sid"));
-                a.setStudent(s);
-                a.setAttend(rs.getBoolean("attend"));
-                attend.add(a);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AttendDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (!checkExist) {
-            attend = null;
-        }
-        return attend;
     }
 
     @Override
@@ -87,41 +59,12 @@ public class AttendDBContext extends DBContext<Attendance> {
 
     @Override
     public void insert(Attendance entity) {
-        try {
-            String sql = "INSERT INTO [Attendance]\n"
-                    + "           ([sid]\n"
-                    + "           ,[sessionid]\n"
-                    + "           ,[attend]\n"
-                    + "           ,[comment])\n"
-                    + "     VALUES\n"
-                    + "           (?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?)";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, entity.getStudent().getSid());
-            stm.setInt(2, entity.getSession().getSessionid());
-            stm.setBoolean(3, entity.getSession().isStatus());
-            stm.setString(4, entity.getComment());
-            stm.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(AttendDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void update(Attendance entity) {
-        try {
-            String sql = "UPDATE [Attendance]\n"
-                    + "   SET [attend] = ?\n"
-                    + " WHERE Attendance.aid = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setBoolean(1, entity.isAttend());
-            stm.setInt(2, entity.getAttendid());
-            stm.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(AttendDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
