@@ -11,7 +11,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Schedule</title>   
-        <link href="css/schedule.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <form action="schedule">
@@ -37,8 +36,8 @@
                                                  selected = "selected";
                                              </c:if>
                                          </c:forEach> >
-                              ${w.startDate.getDayOfMonth()}/${w.startDate.getMonthValue()} To
-                                ${w.endDate.getDayOfMonth()}/${w.endDate.getMonthValue()}
+                                    ${w.startDate.getDayOfMonth()}/${w.startDate.getMonthValue()} To 
+                                    ${w.endDate.getDayOfMonth()}/${w.endDate.getMonthValue()}
                                 </option>
                             </c:forEach>
                         </select>

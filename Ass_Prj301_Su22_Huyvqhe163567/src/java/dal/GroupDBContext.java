@@ -21,32 +21,21 @@ import model.Subject;
  */
 public class GroupDBContext extends DBContext<Group> {
 
-    public ArrayList<Group> list(Student student) {
+    public ArrayList<Student> list(Group group) {
         try {
-            student.setGroup(new ArrayList<>());
-            String sql = "select g.gid,g.[gname],s.[sid],s.sname  from [Group] g inner join Enroll e\n"
-                    + "on g.gid = e.gid inner join Student s \n"
-                    + "on s.[sid] = e.[sid]\n"
-                    + "where s.[sid] = ? ";
+            group.setStu(new ArrayList<>());
+            String sql = "";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, student.getSid());
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                Student s = new Student();
-                s.setSid(rs.getInt("sid"));
-                s.setSname(rs.getString("sname"));
-                Group g = new Group();
-                g.setGid(rs.getInt("gid"));
-                g.setGname(rs.getString("gname"));
-                s.getGroup().add(g);
+            statement.setInt(1, group.getGid());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+               
             }
-            return student.getGroup();
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
     @Override
     public ArrayList<Group> list() {
         ArrayList<Group> group = new ArrayList<>();
@@ -73,7 +62,7 @@ public class GroupDBContext extends DBContext<Group> {
                 Lecture l = new Lecture();
                 l.setLid(rs.getInt("lid"));
                 l.setLname(rs.getString("lname"));
-                g.setLec(l);
+                g.setLec(l);                             
                 group.add(g);
             }
             return group;
