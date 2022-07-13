@@ -9,11 +9,21 @@ package model;
  * @author win
  */
 public class Attendance {
+
     private int attendid;
     private Student student;
     private Session session;
     private boolean attend;
     private Lecture taker;
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public int getAttendid() {
         return attendid;
@@ -54,7 +64,5 @@ public class Attendance {
     public void setTaker(Lecture taker) {
         this.taker = taker;
     }
-    
 
-    
 }
