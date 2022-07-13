@@ -4,7 +4,6 @@
  */
 package dal;
 
-import jakarta.websocket.Session;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,51 +19,22 @@ import model.Student;
  * @author win
  */
 public class StudentDBContext extends DBContext<Student> {
-
-    public ArrayList<Student> list(Group group) {
-        ArrayList<Student> stu = new ArrayList<>();
+     public ArrayList<Group> list(Student student) {
         try {
-            String sql = "select g.gid,g.[gname],s.[sid],s.sname  from [Group] g inner join Enroll e\n"
-                    + "on g.gid = e.gid inner join Student s \n"
-                    + "on s.[sid] = e.[sid]\n"
-                    + "where g.[gid] = ? ";
+            student.setGroup(new ArrayList<>());
+            String sql = "";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, group.getGid());
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                Student s = new Student();
-                s.setSid(rs.getInt("sid"));
-                s.setSname(rs.getString("sname"));
-                stu.add(s);
+            statement.setInt(1, student.getSid());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+              
+              
             }
-            return stu;
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
-    public ArrayList<Student> list(Session ses) {
-        ArrayList<Student> stu = new ArrayList<>();
-        try {
-            String sql = "select stu.[sid],stu.sname from Student stu inner join\n"
-                    + "(select e.sid from Session s inner join Enroll e on s.gid=e.gid\n"
-                    + "where s.sessionID=? ) a on stu.[sid]=a.[sid]";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Student s = new Student();
-                s.setSid(rs.getInt("sid"));
-                s.setSname(rs.getString("sname"));
-                stu.add(s);
-            }
-            return stu;
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
     @Override
     public ArrayList<Student> list() {
         ArrayList<Student> stu = new ArrayList<>();
@@ -135,27 +105,6 @@ public class StudentDBContext extends DBContext<Student> {
 
     public Student get(int i) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public ArrayList<Student> list(model.Session session) {
-        ArrayList<Student> stu = new ArrayList<>();
-        try {
-            String sql = "select stu.[sid],stu.sname from Student stu inner join\n"
-                    + "(select e.sid from Session s inner join Enroll e on s.gid=e.gid\n"
-                    + "where s.sessionID=? ) a on stu.[sid]=a.[sid]";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                Student s = new Student();
-                s.setSid(rs.getInt("sid"));
-                s.setSname(rs.getString("sname"));
-                stu.add(s);
-            }
-            return stu;
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 
 }
