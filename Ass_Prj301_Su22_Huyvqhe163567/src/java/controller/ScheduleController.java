@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import model.Lecture;
 import model.Session;
@@ -49,7 +48,7 @@ public class ScheduleController extends HttpServlet {
         Week currentWeek = dateTime.getWeekByDate(weeks, currentDate);
         sessionDB = new SessionDBContext();
         Lecture lec = new Lecture();
-        lec.setLid(1);
+        lec.setLid(2);
         ArrayList<Session> 
          sessions = sessionDB.listSessionByLecture(lec, currentWeek.getStartDate(), currentWeek.getEndDate());
         session.setAttribute("weeks", weeks);
@@ -57,7 +56,7 @@ public class ScheduleController extends HttpServlet {
         request.setAttribute("date", currentDate);
         request.setAttribute("sessions", sessions);
         request.setAttribute("week", currentWeek);
-        request.getRequestDispatcher("/View/Lecture/schedule.jsp").forward(request, response);
+        request.getRequestDispatcher("View/Lecture/schedule.jsp").forward(request, response);
     }
 
     /**
@@ -77,13 +76,13 @@ public class ScheduleController extends HttpServlet {
         LocalDate currentDate = w.getStartDate();
         Week currentWeek = dateTime.getWeekByDate(weeks, currentDate);
         Lecture lec = new Lecture();
-        lec.setLid(1);
+        lec.setLid(2);
         ArrayList<Session> sessions = sessionDB.listSessionByLecture(lec, currentWeek.getStartDate(), currentWeek.getEndDate());
         request.setAttribute("sessions", sessions);
         request.setAttribute("slots", slotDB.list());
         request.setAttribute("week", currentWeek);
         request.setAttribute("date", currentDate);
-        request.getRequestDispatcher("/View/Lecture/schedule.jsp").forward(request, response);
+        request.getRequestDispatcher("View/Lecture/schedule.jsp").forward(request, response);
     }
 
     /**
