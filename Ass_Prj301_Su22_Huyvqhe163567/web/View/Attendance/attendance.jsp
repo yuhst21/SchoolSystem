@@ -22,7 +22,6 @@
                     <th style="border: solid;">GROUP</th>
                     <th style="border: solid;">CODE</th>
                     <th style="border: solid;">NAME</th>
-                    <th style="border: solid;">IMAGE</th>
                     <th style="border: solid;">STATUS</th>
                     <th style="border: solid;">COMMENT</th>
                     <th style="border: solid;">TAKER</th>
