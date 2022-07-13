@@ -120,23 +120,6 @@ public class SessionDBContext extends DBContext<Session> {
         return null;
     }
 
-    public boolean checkAttendance(Session entity) {
-        try {
-            String sql = "select s.[status] from [Session] s where s.sessionID= ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, entity.getSessionid());
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                if (rs.getBoolean("status")) {
-                    return true;
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
     @Override
     public Session get(Session entity) {
         try {
