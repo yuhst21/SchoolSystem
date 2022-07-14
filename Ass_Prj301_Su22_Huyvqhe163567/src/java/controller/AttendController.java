@@ -47,6 +47,7 @@ public class AttendController extends HttpServlet {
         ArrayList<Student> students = dbStudent.list(s);
         request.setAttribute("students", students);
         request.setAttribute("session", s);
+        request.setAttribute("attend", dbAttendance.list());
         ArrayList<Attendance> attendExist = dbAttendance.existedAttendances(s);
         request.setAttribute("attendExist", attendExist);
         request.getRequestDispatcher("/View/Attendance/attendance.jsp").forward(request, response);
@@ -72,7 +73,7 @@ public class AttendController extends HttpServlet {
         String[] components = request.getParameterValues("component");
         ArrayList<Attendance> attendlist = new ArrayList<>();
         for (String component : components) {
-            int sid = Integer.parseInt(component.split("_")[0]);
+            int sid = Integer.parseInt(component);
             Attendance attend = new Attendance();
             Student stu = new Student();
             stu.setSid(sid);

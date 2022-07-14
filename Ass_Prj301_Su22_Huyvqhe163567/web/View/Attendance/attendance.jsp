@@ -43,7 +43,7 @@
                         <td>
                             <img src="img/empty-avatar.jpg" alt=""/>
                         </td>         
-                        <td>
+                        <td>                           
                             <input type="radio" name="check_${stu.sid}" checked="checked" value="false"/> absent
                             <input type="radio" name="check_${stu.sid}" value="true"/> present
                             <input type="hidden" name="component" value="${stu.sid}"/>

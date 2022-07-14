@@ -85,6 +85,53 @@ public class AttendDBContext extends DBContext<Attendance> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public void CRUDAttend(ArrayList<Attendance> attend) {
+        try {
+            connection.setAutoCommit(false);
+            for (Attendance entity : attend) {
+                //INSERT
+                if (!(entity.isAttend()||!entity.isAttend()) && entity.getAttendid() ==-1  ) {
+                    String sql = "INSERT INTO [Attendance]\n"
+                            + "           ([sid]\n"
+                            + "           ,[sessionid]\n"
+                            + "           ,[attend]\n"
+                            + "           ,[comment])\n"
+                            + "     VALUES\n"
+                            + "           (?\n"
+                            + "           ,?\n"
+                            + "           ,?\n"
+                            + "           ,?)";
+                    PreparedStatement stm = connection.prepareStatement(sql);
+                    stm.setInt(1, entity.getStudent().getSid());
+                    stm.setInt(2, entity.getSession().getSessionid());
+                    stm.setBoolean(3, entity.isAttend());
+                    stm.setString(4, entity.getComment());
+                    stm.executeUpdate();
+                } else if((entity.isAttend()||!entity.isAttend()) && entity.getAttendid() !=-1 ){
+                    String sql_update = "UPDATE [Attendance] SET [attend] = ?  WHERE Attendance.aid = ?";
+                    PreparedStatement stm = connection.prepareStatement(sql_update);
+                    stm.setBoolean(1, entity.isAttend());
+                    stm.setInt(2, entity.getAttendid());
+                    stm.executeUpdate();
+                }
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AttendDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AttendDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     @Override
     public void insert(Attendance entity) {
         try {
