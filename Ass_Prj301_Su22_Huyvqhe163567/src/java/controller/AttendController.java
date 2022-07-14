@@ -63,13 +63,29 @@ public class AttendController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String sid = request.getParameter("sessionID");
+        String sesid = request.getParameter("sessionID");
         Session s = new Session();
-        s.setSessionid(Integer.parseInt(sid));
+        s.setSessionid(Integer.parseInt(sesid));
         Session session = dbSession.get(s);
         ArrayList<Student> students = dbStudent.list(s);
         request.setAttribute("students", students);
-        
+        String[] components = request.getParameterValues("component");
+        ArrayList<Attendance> attendlist = new ArrayList<>();
+        for (String component : components) {
+            int sid = Integer.parseInt(component.split("_")[0]);
+            Attendance attend = new Attendance();
+            Student stu = new Student();
+            stu.setSid(sid);
+            Session ses = new Session();
+            ses.setSessionid(Integer.parseInt(sesid));
+            String statusStr = request.getParameter("status" + sid);
+            boolean status = statusStr.equals("present");
+            attend.setStudent(stu);
+            attend.setSession(ses);
+            attend.setAttend(status);
+            attendlist.add(attend);
+        }
+
     }
 
     /**

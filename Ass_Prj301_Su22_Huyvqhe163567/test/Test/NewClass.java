@@ -4,9 +4,9 @@
  */
 package Test;
 
+import dal.SessionDBContext;
 import java.util.ArrayList;
-import model.Group;
-import model.Student;
+import model.Session;
 
 /**
  *
@@ -14,19 +14,11 @@ import model.Student;
  */
 public class NewClass {
     public static void main(String[] args) {
+        SessionDBContext dbSession = new SessionDBContext();
+        Session s = new Session();
+        s.setSessionid(8);
+        Session session = dbSession.get(s);
+        System.out.println(session.getTaker().getLname());
         
-        ArrayList<Student> stu = new ArrayList<>();
-        Student s = new Student();
-        s.setSid(0);
-        s.setSname("Huy");
-        Group g = new Group();
-        g.setGid(1);
-        g.setGname("Se12");
-        s.setGroup(new ArrayList<>());
-        s.getGroup().add(g);
-        stu.add(s);
-        for (Student student : stu) {
-            System.out.println(stu.size());
-        }
     }
 }

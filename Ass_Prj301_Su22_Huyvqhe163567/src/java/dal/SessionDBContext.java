@@ -75,7 +75,6 @@ public class SessionDBContext extends DBContext<Session> {
 
     @Override
     public ArrayList<Session> list() {
-
         ArrayList<Session> session = new ArrayList<>();
         try {
             String sql = "select s.sessionid,s.roomid,r.roomname,s.slotid,sl.slotname,g.gid,g.gname,g.lid,l.lname,g.subjectid,sub.subjectname,s.[date] from [Session] s \n"
@@ -140,13 +139,13 @@ public class SessionDBContext extends DBContext<Session> {
     @Override
     public Session get(Session entity) {
         try {
-            String sql = "select s.sessionid,s.roomid,r.roomname,s.slotid,sl.slotname,g.gid,g.gname,g.lid,l.lname,g.subjectid,sub.subjectname,s.[date] from [Session] s \n"
+            String sql = "select s.sessionid,s.roomid,r.roomname,s.slotid,sl.slotname,g.gid,g.gname,g.lid,l.lname,g.subjectid,sub.subjectname,s.[date],s.[status],s.taker from [Session] s\n"
                     + "inner join Room r on s.roomid = r.roomid\n"
                     + "inner join Slot sl on s.slotid = sl.slotid\n"
                     + "inner join [Group] g on s.gid = g.gid\n"
                     + "inner join Lecture l on g.lid = l.lid\n"
                     + "inner join [Subject] sub on g.subjectid = sub.subjectid\n"
-                    + "where g.gid = ?";
+                    + "where s.sessionid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, entity.getSessionid());
             ResultSet rs = stm.executeQuery();
@@ -167,13 +166,14 @@ public class SessionDBContext extends DBContext<Session> {
                 Lecture l = new Lecture();
                 l.setLid(rs.getInt("lid"));
                 l.setLname(rs.getString("lname"));
-                g.setLec(ldb.get(l));
                 Subject sub = new Subject();
                 sub.setSubjectid(rs.getInt("subjectid"));
                 sub.setSubjectname(rs.getString("subjectname"));
                 g.setSub(sdb.get(sub));
                 s.setGroup(g);
                 s.setDate(rs.getDate("date"));
+                s.setStatus(rs.getBoolean("status"));
+                s.setTaker(l);
                 return s;
 
             }

@@ -51,7 +51,7 @@
                     <td>Sun</td>
                 </tr>
                 <tr>                   
-                    <c:forEach var="days" begin="1" end="7">
+                    <c:forEach var="days" begin="0" end="6">
                         <td>${requestScope.week.startDate.plusDays(days).getDayOfMonth()}/${requestScope.week.startDate.plusDays(days).getMonthValue()}</td>
                     </c:forEach>
                 </tr>
