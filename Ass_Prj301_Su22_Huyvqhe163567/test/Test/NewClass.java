@@ -4,21 +4,27 @@
  */
 package Test;
 
+import dal.AttendDBContext;
 import dal.SessionDBContext;
+import dal.StudentDBContext;
 import java.util.ArrayList;
+import model.Attendance;
 import model.Session;
+import model.Student;
 
 /**
  *
  * @author win
  */
 public class NewClass {
+
     public static void main(String[] args) {
         SessionDBContext dbSession = new SessionDBContext();
-        Session s = new Session();
-        s.setSessionid(8);
-        Session session = dbSession.get(s);
-        System.out.println(session.getTaker().getLname());
-        
+        StudentDBContext dbStudent = new StudentDBContext();
+        AttendDBContext dbAttendance = new AttendDBContext();
+        ArrayList<Attendance> att = dbAttendance.list();
+        for (Attendance attendance : att) {
+            System.out.println(attendance.getSession().getSessionid());
+        }
     }
 }

@@ -46,10 +46,8 @@ public class AttendController extends HttpServlet {
         Session session = dbSession.get(s);
         ArrayList<Student> students = dbStudent.list(s);
         request.setAttribute("students", students);
-        request.setAttribute("session", s);
+        request.setAttribute("session", session);
         request.setAttribute("attend", dbAttendance.list());
-        ArrayList<Attendance> attendExist = dbAttendance.existedAttendances(s);
-        request.setAttribute("attendExist", attendExist);
         request.getRequestDispatcher("/View/Attendance/attendance.jsp").forward(request, response);
     }
 
@@ -69,8 +67,26 @@ public class AttendController extends HttpServlet {
         s.setSessionid(Integer.parseInt(sesid));
         Session session = dbSession.get(s);
         ArrayList<Student> students = dbStudent.list(s);
-        request.setAttribute("students", students);
-        String[] components = request.getParameterValues("component");
+
+        for (Student stu : students) {
+            Attendance attendance = new Attendance();
+            boolean attend = request.getParameter("status" + stu.getSid()).equals("true");
+            String comment = request.getParameter("comment" + stu.getSid());
+            attendance.setAttend(attend);
+            attendance.setComment(comment);
+            attendance.setStudent(dbStudent.get(stu));
+            Session ses = dbSession.get(s);
+            ses.setStatus(true);
+            dbSession.update(ses);
+            attendance.setSession(ses);
+            if (!dbAttendance.isExistAttend(attendance)) {
+                dbAttendance.insert(attendance);
+            } else {
+                dbAttendance.update(attendance);
+            }
+
+        }
+        /*  String[] components = request.getParameterValues("component");
         ArrayList<Attendance> attendlist = new ArrayList<>();
         for (String component : components) {
             int sid = Integer.parseInt(component);
@@ -85,8 +101,7 @@ public class AttendController extends HttpServlet {
             attend.setSession(ses);
             attend.setAttend(status);
             attendlist.add(attend);
-        }
-
+        }*/
     }
 
     /**

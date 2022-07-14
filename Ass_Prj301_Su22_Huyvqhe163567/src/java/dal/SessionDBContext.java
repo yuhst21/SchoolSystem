@@ -190,7 +190,17 @@ public class SessionDBContext extends DBContext<Session> {
 
     @Override
     public void update(Session entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String sql = "UPDATE [Session]\n"
+                    + "   SET [status] = ?\n"
+                    + " WHERE sessionID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setBoolean(1, entity.isStatus());
+            stm.setInt(2, entity.getSessionid());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

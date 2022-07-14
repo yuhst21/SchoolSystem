@@ -21,29 +21,34 @@ import model.Student;
  */
 public class AttendDBContext extends DBContext<Attendance> {
 
+    StudentDBContext sdb = new StudentDBContext();
+    LectureDBContext ldb = new LectureDBContext();
+    SessionDBContext sesdb = new SessionDBContext();
     @Override
     public ArrayList<Attendance> list() {
         ArrayList<Attendance> attend = new ArrayList<>();
-        StudentDBContext sdb = new StudentDBContext();
-        LectureDBContext ldb = new LectureDBContext();
         try {
-            String sql = "select a.attendid,a.[sid],s.sname,a.attend,a.taker,l.lname from \n"
-                    + "Attendance a inner join Student s on a.[sid] = s.[sid]\n"
-                    + "inner join Lecture l on a.taker = l.lid";
+            String sql = "select a.aid,s.[sid],s.sname,a.attend,ses.taker,l.lname,a.comment,ses.sessionid from Attendance a \n" +
+"                    inner join Student s on s.[sid] = a.[sid]\n" +
+"                    inner join [Session] ses on ses.sessionid = a.sessionid\n" +
+"                    inner join Lecture l on l.lid = ses.taker";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Attendance a = new Attendance();
-                a.setAttendid(rs.getInt("attendid"));
+                a.setAttendid(rs.getInt("aid"));
                 Student s = new Student();
                 s.setSid(rs.getInt("sid"));
                 s.setSname(rs.getString("sname"));
-                a.setStudent(sdb.get(s));
+                a.setStudent(s);
+                Session ses = new Session();
+                ses.setSessionid(rs.getInt("sessionid"));
+                a.setSession(sesdb.get(ses));
                 a.setAttend(rs.getBoolean("attend"));
                 Lecture l = new Lecture();
-                l.setLid(rs.getInt("lid"));
+                l.setLid(rs.getInt("taker"));
                 l.setLname(rs.getString("lname"));
-                a.setTaker(ldb.get(l));
+                a.setTaker(l);
                 attend.add(a);
             }
             return attend;
@@ -90,7 +95,7 @@ public class AttendDBContext extends DBContext<Attendance> {
             connection.setAutoCommit(false);
             for (Attendance entity : attend) {
                 //INSERT
-                if (!(entity.isAttend()||!entity.isAttend()) && entity.getAttendid() ==-1  ) {
+                if (!(entity.isAttend() || !entity.isAttend()) && entity.getAttendid() == -1) {
                     String sql = "INSERT INTO [Attendance]\n"
                             + "           ([sid]\n"
                             + "           ,[sessionid]\n"
@@ -107,7 +112,7 @@ public class AttendDBContext extends DBContext<Attendance> {
                     stm.setBoolean(3, entity.isAttend());
                     stm.setString(4, entity.getComment());
                     stm.executeUpdate();
-                } else if((entity.isAttend()||!entity.isAttend()) && entity.getAttendid() !=-1 ){
+                } else if ((entity.isAttend() || !entity.isAttend()) && entity.getAttendid() != -1) {
                     String sql_update = "UPDATE [Attendance] SET [attend] = ?  WHERE Attendance.aid = ?";
                     PreparedStatement stm = connection.prepareStatement(sql_update);
                     stm.setBoolean(1, entity.isAttend());
@@ -161,6 +166,7 @@ public class AttendDBContext extends DBContext<Attendance> {
         try {
             String sql = "UPDATE [Attendance]\n"
                     + "   SET [attend] = ?\n"
+                    + "   ,[comment] = ?\n"
                     + " WHERE Attendance.aid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setBoolean(1, entity.isAttend());
@@ -176,4 +182,15 @@ public class AttendDBContext extends DBContext<Attendance> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public boolean isExistAttend(Attendance entity) {
+        boolean isExist = false;
+        ArrayList<Attendance> list = list();
+        for (Attendance a : list) {
+            if (a.getStudent().getSid() == entity.getStudent().getSid()
+                    && a.getSession().getSessionid() == entity.getSession().getSessionid()) {
+                isExist = true;
+            }
+        }
+        return isExist;
+    }
 }

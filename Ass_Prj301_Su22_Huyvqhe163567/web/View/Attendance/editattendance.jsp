@@ -45,11 +45,13 @@
                             <img src="img/empty-avatar.jpg" alt=""/>
                         </td>         
                         <td>                           
-                            <input type="radio" name="status${stu.sid}" checked="checked" value="false"/> absent
-                            <input type="radio" name="status${stu.sid}" value="true"/> present   
+                            <input type="radio" name="status${stu.sid}" value="false" 
+                                   ${attend.attend == false ?"checked":""}/> absent
+                            <input type="radio" name="status${stu.sid}" value="true"
+                                   ${attend.attend == true ?"checked":""} /> present   
                             <input type="hidden" name="component" value="${stu.sid}"/>
                         </td>
-                          <td><input type="text" name="comment${e.student.id}"></td>
+                        <td><input type="text" name="comment${e.student.id}" value="${attend.comment}"></td>
                     </tr>
                 </c:forEach>
             </table> </br>
