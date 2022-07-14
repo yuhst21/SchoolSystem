@@ -24,15 +24,12 @@ public class Test {
     AttendDBContext dbAttendance = new AttendDBContext();
     
         Session s = new Session();
-        s.setSessionid(7);
+        s.setSessionid(9);
         
         ArrayList<Student> students = dbStudent.list(s);
         for (Student st : students) {
             System.out.println(st.getSname());
         }
-        ArrayList<Attendance> attendExist = dbAttendance.existedAttendances(s);
-        for (Attendance a : attendExist) {
-            System.out.println(a.isAttend());
-        }
+       
     }
 }

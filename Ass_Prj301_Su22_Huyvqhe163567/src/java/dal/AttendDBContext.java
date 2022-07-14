@@ -101,7 +101,7 @@ public class AttendDBContext extends DBContext<Attendance> {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, entity.getStudent().getSid());
             stm.setInt(2, entity.getSession().getSessionid());
-            stm.setBoolean(3, entity.getSession().isStatus());
+            stm.setBoolean(3, entity.isAttend());
             stm.setString(4, entity.getComment());
             stm.executeUpdate();
         } catch (SQLException ex) {

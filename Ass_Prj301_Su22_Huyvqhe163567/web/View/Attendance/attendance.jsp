@@ -14,28 +14,26 @@
         <title>JSP Page</title>
     </head>
     <body>
-     
+
         <form action="attend" method="POST">
             <input type="hidden" value="${session.sessionid}" name="sessionID" />
             <table border="2">
-                <tr >
-                    <td>
-                        Student ID
-                    </td>
-                    <td>
-                        Student Name
-                    </td>
-                    <td>
-                        Avatar
-                    </td>    
-                    <td>
-                        Status
-                    </td>
+                <tr>
+                    <td>No</td>
+                    <td>Group</td>
+                    <td>Student Code</td>
+                    <td>Student Name</td>
+                    <td>Image</td>    
+                    <td>Status</td>
                 </tr>
                 <c:forEach var="stu" items="${requestScope.students}">
                     <tr>
+
+                        <td>${students.indexOf(stu)+1} </td>
+
+                        <td> ${stu.group.get(0).gname}</td>
                         <td>
-                            ${stu.sid}
+                            ${stu.scode}
                             <input type="hidden"name="${stu.sid}" value="${stu.sid}">
                         </td>
                         <td>
@@ -44,17 +42,17 @@
                         </td>                         
                         <td>
                             <img src="img/empty-avatar.jpg" alt=""/>
-                        </td>
-                       
+                        </td>         
                         <td>
-                           
+                            <input type="radio" name="check_${stu.sid}" checked="checked" value="false"/> absent
+                            <input type="radio" name="check_${stu.sid}" value="true"/> present
                         </td>
                     </tr>
                 </c:forEach>
             </table> </br>
             <input type="submit" value="Save" />
-           
-            
+
+
         </form>
     </body>
 </html>

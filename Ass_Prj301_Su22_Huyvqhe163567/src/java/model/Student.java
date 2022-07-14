@@ -18,6 +18,15 @@ public class Student {
     private Date sdob;
     private Department dep;
     private ArrayList<Group> group;
+    private String scode;
+
+    public String getScode() {
+        return scode;
+    }
+
+    public void setScode(String scode) {
+        this.scode = scode;
+    }
 
     public ArrayList<Group> getGroup() {
         return group;

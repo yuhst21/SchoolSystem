@@ -28,8 +28,6 @@ public class AttendController extends HttpServlet {
     StudentDBContext dbStudent = new StudentDBContext();
     AttendDBContext dbAttendance = new AttendDBContext();
 
-   
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -65,7 +63,13 @@ public class AttendController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String sid = request.getParameter("sessionID");
+        Session s = new Session();
+        s.setSessionid(Integer.parseInt(sid));
+        Session session = dbSession.get(s);
+        ArrayList<Student> students = dbStudent.list(s);
+        request.setAttribute("students", students);
+        
     }
 
     /**

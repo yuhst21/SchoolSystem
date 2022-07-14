@@ -47,8 +47,10 @@ public class StudentDBContext extends DBContext<Student> {
     public ArrayList<Student> list(Session session) {
         ArrayList<Student> stu = new ArrayList<>();
         try {
-            String sql = "select stu.[sid],stu.sname from Student stu inner join\n"
-                    + "(select e.sid from Session s inner join Enroll e on s.gid=e.gid\n"
+    
+            String sql = "select stu.[sid],stu.sname,a.gid,a.gname,stu.scode from Student stu inner join\n"
+                    + "(select e.sid,s.gid,g.gname from Session s inner join Enroll e on s.gid=e.gid\n"
+                    + "inner join [Group] g on g.gid = s.gid\n"
                     + "where s.sessionID= ? ) a on stu.[sid]=a.[sid]";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, session.getSessionid());
@@ -57,6 +59,12 @@ public class StudentDBContext extends DBContext<Student> {
                 Student s = new Student();
                 s.setSid(rs.getInt("sid"));
                 s.setSname(rs.getString("sname"));
+                s.setScode(rs.getString("scode"));
+                Group g = new Group();
+                g.setGid(rs.getInt("gid"));
+                g.setGname(rs.getString("gname"));
+                s.setGroup(new ArrayList<>());
+                s.getGroup().add(g);
                 stu.add(s);
             }
             return stu;
