@@ -24,14 +24,15 @@ public class AttendDBContext extends DBContext<Attendance> {
     StudentDBContext sdb = new StudentDBContext();
     LectureDBContext ldb = new LectureDBContext();
     SessionDBContext sesdb = new SessionDBContext();
+
     @Override
     public ArrayList<Attendance> list() {
         ArrayList<Attendance> attend = new ArrayList<>();
         try {
-            String sql = "select a.aid,s.[sid],s.sname,a.attend,ses.taker,l.lname,a.comment,ses.sessionid from Attendance a \n" +
-"                    inner join Student s on s.[sid] = a.[sid]\n" +
-"                    inner join [Session] ses on ses.sessionid = a.sessionid\n" +
-"                    inner join Lecture l on l.lid = ses.taker";
+            String sql = "select a.aid,s.[sid],s.sname,a.attend,ses.taker,l.lname,a.comment,ses.sessionid from Attendance a \n"
+                    + "                    inner join Student s on s.[sid] = a.[sid]\n"
+                    + "                    inner join [Session] ses on ses.sessionid = a.sessionid\n"
+                    + "                    inner join Lecture l on l.lid = ses.taker";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -166,11 +167,13 @@ public class AttendDBContext extends DBContext<Attendance> {
         try {
             String sql = "UPDATE [Attendance]\n"
                     + "   SET [attend] = ?\n"
-                    + "   ,[comment] = ?\n"
-                    + " WHERE Attendance.aid = ?";
+                    + "      ,[comment] = ?\n"
+                    + " WHERE Attendance.sessionid = ? and Attendance.[sid] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setBoolean(1, entity.isAttend());
-            stm.setInt(2, entity.getAttendid());
+            stm.setString(2, entity.getComment());
+            stm.setInt(3, entity.getSession().getSessionid());
+            stm.setInt(4, entity.getStudent().getSid());
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AttendDBContext.class.getName()).log(Level.SEVERE, null, ex);

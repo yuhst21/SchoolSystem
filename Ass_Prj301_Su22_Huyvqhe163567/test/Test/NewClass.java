@@ -24,7 +24,7 @@ public class NewClass {
         AttendDBContext dbAttendance = new AttendDBContext();
         ArrayList<Attendance> att = dbAttendance.list();
         for (Attendance attendance : att) {
-            System.out.println(attendance.getSession().getSessionid());
+            System.out.println(attendance.isAttend());
         }
     }
 }

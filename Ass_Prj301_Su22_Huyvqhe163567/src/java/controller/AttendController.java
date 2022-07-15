@@ -45,9 +45,18 @@ public class AttendController extends HttpServlet {
         s.setSessionid(Integer.parseInt(sid));
         Session session = dbSession.get(s);
         ArrayList<Student> students = dbStudent.list(s);
+        ArrayList<Student> students1 = dbStudent.list(s);
+        ArrayList<Attendance> attend = dbAttendance.list();
+        for (Student student : students) {
+            for (Attendance a : attend) {
+                if(a.getStudent().getSid() == student.getSid()){
+                    student.getAttendance().add(a);
+                }
+            }
+        }
         request.setAttribute("students", students);
         request.setAttribute("session", session);
-        request.setAttribute("attend", dbAttendance.list());
+        request.setAttribute("attend", attend);
         request.getRequestDispatcher("/View/Attendance/attendance.jsp").forward(request, response);
     }
 
@@ -67,7 +76,6 @@ public class AttendController extends HttpServlet {
         s.setSessionid(Integer.parseInt(sesid));
         Session session = dbSession.get(s);
         ArrayList<Student> students = dbStudent.list(s);
-
         for (Student stu : students) {
             Attendance attendance = new Attendance();
             boolean attend = request.getParameter("status" + stu.getSid()).equals("true");
@@ -84,8 +92,8 @@ public class AttendController extends HttpServlet {
             } else {
                 dbAttendance.update(attendance);
             }
-
         }
+
         /*  String[] components = request.getParameterValues("component");
         ArrayList<Attendance> attendlist = new ArrayList<>();
         for (String component : components) {
@@ -102,6 +110,10 @@ public class AttendController extends HttpServlet {
             attend.setAttend(status);
             attendlist.add(attend);
         }*/
+        request.removeAttribute("students");
+        request.removeAttribute("session");
+        request.removeAttribute("attend");
+        response.sendRedirect("schedule");
     }
 
     /**

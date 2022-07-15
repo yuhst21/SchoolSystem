@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author win
  */
 public class Student {
+
     private int sid;
     private String sname;
     private boolean sgender;
@@ -19,6 +20,15 @@ public class Student {
     private Department dep;
     private ArrayList<Group> group;
     private String scode;
+    private ArrayList<Attendance> attendance = new ArrayList<>();
+
+    public ArrayList<Attendance> getAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(ArrayList<Attendance> attendance) {
+        this.attendance = attendance;
+    }
 
     public String getScode() {
         return scode;
@@ -35,7 +45,6 @@ public class Student {
     public void setGroup(ArrayList<Group> group) {
         this.group = group;
     }
-    
 
     public int getSid() {
         return sid;
@@ -76,5 +85,16 @@ public class Student {
     public void setDep(Department dep) {
         this.dep = dep;
     }
-    
+
+    public boolean stuAttend(Session ses) {
+        for (Attendance attend : attendance) {
+            if (attend.getSession().getSessionid() == ses.getSessionid()) {
+                if (attend.isAttend()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }
