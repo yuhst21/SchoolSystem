@@ -8,6 +8,10 @@
         <servlet-name>ScheduleController</servlet-name>
         <servlet-class>controller.ScheduleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AttendanceRecordController</servlet-name>
+        <servlet-class>controller.AttendanceRecordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AttendController</servlet-name>
         <url-pattern>/attend</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ScheduleController</servlet-name>
         <url-pattern>/schedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AttendanceRecordController</servlet-name>
+        <url-pattern>/attendrecord</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

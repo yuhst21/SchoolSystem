@@ -17,6 +17,8 @@
 
         <form action="attend" method="POST">
             <input type="hidden" value="${session.sessionid}" name="sessionID" />
+            <p>Attendance for <b>${session.group.sub.subjectname}</b> with lecturer <b>${session.taker.lname}</b> 
+                at ${session.slot.slotname}</p>
             <table border="2">
                 <tr>
                     <td>No</td>

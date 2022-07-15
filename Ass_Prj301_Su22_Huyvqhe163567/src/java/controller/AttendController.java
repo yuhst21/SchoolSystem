@@ -45,11 +45,10 @@ public class AttendController extends HttpServlet {
         s.setSessionid(Integer.parseInt(sid));
         Session session = dbSession.get(s);
         ArrayList<Student> students = dbStudent.list(s);
-        ArrayList<Student> students1 = dbStudent.list(s);
         ArrayList<Attendance> attend = dbAttendance.list();
         for (Student student : students) {
             for (Attendance a : attend) {
-                if(a.getStudent().getSid() == student.getSid()){
+                if (a.getStudent().getSid() == student.getSid()) {
                     student.getAttendance().add(a);
                 }
             }
