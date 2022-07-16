@@ -14,6 +14,17 @@ import model.Week;
  * @author win
  */
 public class DateTimeHandle {
+
+    public ArrayList<Integer> getYear() {
+        int year = LocalDate.now().getYear();
+        ArrayList<Integer> years = new ArrayList<>();
+        for (int i = 0; i <= 3; i++) {
+            years.add(year + i);
+        }
+        return years;
+
+    }
+
     public ArrayList<Week> getWeeksOfYear() {
         ArrayList<Week> weeks = new ArrayList<>();
         LocalDate startDate = LocalDate.parse("03-01-2022", DateTimeFormatter.ofPattern("dd-MM-yyyy"));

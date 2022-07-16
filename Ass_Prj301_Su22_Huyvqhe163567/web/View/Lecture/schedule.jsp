@@ -26,7 +26,10 @@
             <table border="1" >
                 <tr>
                     <td rowspan="2">
-                        Year: 2022 <br/>
+                        Year: <select id="id">
+                            <option value="value">2021</option>
+                        </select>
+                        <br/>
                         Week:
                         <select onchange="Select()" id="week" name="week_index">
                             <c:forEach items="${sessionScope.weeks}" var="w">
@@ -70,7 +73,9 @@
                                               (not yet)
                                           </c:if>
                                           <c:if test="${s.status eq true}">
-                                              (attended)
+                                              (attended)-<a href="attendrecord?sessionID=${s.sessionid}">
+                                             View
+                                          </a>
                                           </c:if>                        
                                     </c:if>
                                 </c:forEach> 

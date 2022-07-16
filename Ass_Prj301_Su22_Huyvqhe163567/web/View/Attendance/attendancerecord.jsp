@@ -58,8 +58,10 @@
                         <td></td>
                         <td>${session.taker.lname}</td>
                     </tr>
-                </c:forEach>
-            </table> 
+                    
+                </c:forEach>                                                                                        
+            </table></br>
+            <a href="attend?sessionID=${session.sessionid}" style="text-decoration: none">Edit</a>
         </form>
     </body>
 </html>

@@ -9,6 +9,7 @@ import dal.SessionDBContext;
 import dal.StudentDBContext;
 import java.util.ArrayList;
 import model.Attendance;
+import model.Group;
 import model.Session;
 import model.Student;
 
@@ -18,13 +19,26 @@ import model.Student;
  */
 public class NewClass {
 
-    public static void main(String[] args) {
-        SessionDBContext dbSession = new SessionDBContext();
+    public static void main(String[] args) { String gid = "";
         StudentDBContext dbStudent = new StudentDBContext();
-        AttendDBContext dbAttendance = new AttendDBContext();
-        ArrayList<Attendance> att = dbAttendance.list();
-        for (Attendance attendance : att) {
-            System.out.println(attendance.isAttend());
+        AttendDBContext dbAttend = new AttendDBContext();
+        Group group = new Group();
+        group.setGid(3);
+        ArrayList<Student> students = dbStudent.list(group);
+        ArrayList<Attendance> attends = dbAttend.list();      
+        for (Student student : students) {
+            student.getAttendance().clear();
+            for (Attendance attend : attends) {
+                if (group.getGid()==attend.getSession().getGroup().getGid() &&
+                        student.getSid() == attend.getStudent().getSid()) {
+                    student.getAttendance().add(attend);
+                 
+                }
+            }
         }
+        for (Student stu : students) {
+            System.out.println(stu.getAbsent());
+        }
+       
     }
 }

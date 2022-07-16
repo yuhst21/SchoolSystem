@@ -96,5 +96,12 @@ public class Student {
         }
         return false;
     }
+    public int getAbsent() {
+        int count=0;
+        for(Attendance a : attendance) {
+            if(!a.isAttend()) count++;
+        }
+        return count;
+    }
 
 }

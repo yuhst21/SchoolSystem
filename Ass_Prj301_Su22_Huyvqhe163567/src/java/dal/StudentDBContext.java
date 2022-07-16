@@ -23,8 +23,9 @@ public class StudentDBContext extends DBContext<Student> {
 
     public ArrayList<Student> list(Group group) {
         ArrayList<Student> stu = new ArrayList<>();
+        ArrayList<Group> gr = new ArrayList<>();
         try {
-            String sql = "select g.gid,g.[gname],s.[sid],s.sname  from [Group] g inner join Enroll e\n"
+            String sql = "select g.gid,g.[gname],s.[sid],s.sname,s.scode  from [Group] g inner join Enroll e\n"
                     + "on g.gid = e.gid inner join Student s \n"
                     + "on s.[sid] = e.[sid]\n"
                     + "where g.[gid] = ? ";
@@ -32,9 +33,15 @@ public class StudentDBContext extends DBContext<Student> {
             statement.setInt(1, group.getGid());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
+                Group g = new Group();
+                g.setGid(rs.getInt("gid"));
+                g.setGname(rs.getString("gname"));
+                gr.add(g);
                 Student s = new Student();
                 s.setSid(rs.getInt("sid"));
                 s.setSname(rs.getString("sname"));
+                s.setScode(rs.getString("scode"));
+                s.setGroup(gr);
                 stu.add(s);
             }
             return stu;
