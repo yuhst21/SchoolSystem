@@ -19,8 +19,13 @@
             <ul>
                 <li><a href="schedule">Home</a></li>
                 <li><a href="grouplist">View Classes</a></li>
-                <li>
-
+                <li style="float:right">
+                    <c:if test="${sessionScope.account ne null}">
+                        <a href="logout">Logout</a>
+                    </c:if>
+                    <c:if test="${sessionScope.account eq null}">
+                        <a href="login">Login</a>
+                    </c:if>
                 </li>
             </ul>
         </nav> 

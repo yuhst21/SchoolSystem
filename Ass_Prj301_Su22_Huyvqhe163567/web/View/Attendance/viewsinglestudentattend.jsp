@@ -14,12 +14,17 @@
         <link href="css/viewsinglestudentattend.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>   
-           <nav>
+        <nav>
             <ul>
                 <li><a href="schedule">Home</a></li>
                 <li><a href="grouplist">View Classes</a></li>
-                <li>
-               
+                <li style="float:right">
+                    <c:if test="${sessionScope.account ne null}">
+                        <a href="logout">Logout</a>
+                    </c:if>
+                    <c:if test="${sessionScope.account eq null}">
+                        <a href="login">Login</a>
+                    </c:if>
                 </li>
             </ul>
         </nav> 
@@ -49,11 +54,11 @@
                     </td>
                 </tr>
             </c:forEach>
-                 </table> 
-            <c:forEach var="stu" items="${requestScope.students}">
-                   (${stu.getAbsent()} ABSENT ON 20 TOTAL)           
-            </c:forEach>
+        </table> 
+        <c:forEach var="stu" items="${requestScope.students}">
+            (${stu.getAbsent()} ABSENT ON 20 TOTAL)           
+        </c:forEach>
 
-       
+
     </body>
 </html>
