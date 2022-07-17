@@ -11,8 +11,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-
+        <title>View Student</title>
+        <link href="css/viewstudentattend.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <nav>
@@ -24,16 +24,16 @@
                 </li>
             </ul>
         </nav> 
-        <table border="2">
-            <tr id="head">
-                <td>No</td>
+        <table border="1" style="width:30%"> 
+            <tr id="head" style="height:25px">
+                <td style="width:3%">No</td>
                 <td>Group</td>
                 <td>Student Code</td>
                 <td>Student Name</td>    
                 <td>Absent</td>             
             </tr>
             <c:forEach var="stu" items="${requestScope.students}">
-                <tr>
+                <tr style="height:25px">
                     <td>${students.indexOf(stu)+1} </td>
                     <td> ${stu.group.get(0).gname}</td>
                     <td>  <a href="viewsinglestu?sid=${stu.sid}" 

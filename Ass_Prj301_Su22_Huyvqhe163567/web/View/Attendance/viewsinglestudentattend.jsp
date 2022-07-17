@@ -10,7 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>View Student</title>
+        <link href="css/viewsinglestudentattend.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>   
            <nav>
@@ -22,8 +23,8 @@
                 </li>
             </ul>
         </nav> 
-        <table border="2">
-            <tr id="head">
+        <table border="1" style="width:30%">
+            <tr id="head" style="height:25px">
                 <td>No</td>
                 <td>Group</td>
                 <td>Slot</td>
@@ -32,7 +33,7 @@
                 <td>Attendance Status</td>              
             </tr>
             <c:forEach var="att" items="${requestScope.attendance}">
-                <tr>
+                <tr style="height:25px">
                     <td>${attendance.indexOf(att)+1}</td>
                     <td>${att.session.group.gname}</td>
                     <td>${att.session.slot.slotid}</td>

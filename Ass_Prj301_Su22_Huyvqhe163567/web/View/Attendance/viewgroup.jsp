@@ -10,7 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>View Group</title>
+        <link href="css/viewgroup.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="hero">
