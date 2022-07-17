@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Attendance;
+import model.Group;
 import model.Lecture;
 import model.Session;
+import model.Slot;
 import model.Student;
 
 /**
@@ -44,6 +46,53 @@ public class AttendDBContext extends DBContext<Attendance> {
                 a.setStudent(s);
                 Session ses = new Session();
                 ses.setSessionid(rs.getInt("sessionid"));
+                a.setSession(sesdb.get(ses));
+                a.setAttend(rs.getBoolean("attend"));
+                Lecture l = new Lecture();
+                l.setLid(rs.getInt("taker"));
+                l.setLname(rs.getString("lname"));
+                a.setTaker(l);
+                attend.add(a);
+            }
+            return attend;
+        } catch (SQLException ex) {
+            Logger.getLogger(AttendDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Attendance> listOneAttend(Student stu, Group gr) {
+        ArrayList<Attendance> attend = new ArrayList<>();
+        try {
+            String sql = "select a.aid,s.[sid],s.sname,a.attend,ses.taker,l.lname,a.comment,ses.sessionid,sl.slotid,sl.slotname,ses.[date],g.gid,g.gname from Attendance a \n"
+                    + "inner join Student s on s.[sid] = a.[sid]\n"
+                    + "inner join [Session] ses on ses.sessionid = a.sessionid\n"
+                    + "inner join Lecture l on l.lid = ses.taker\n"
+                    + "inner join [Group] g on g.gid = ses.gid\n"
+                    + "inner join Slot sl on sl.slotid = ses.slotid\n"
+                    + "where s.sid = ? and g.gid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, stu.getSid());
+            stm.setInt(2, gr.getGid());
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Attendance a = new Attendance();
+                a.setAttendid(rs.getInt("aid"));
+                Student s = new Student();
+                s.setSid(rs.getInt("sid"));
+                s.setSname(rs.getString("sname"));
+                a.setStudent(s);
+                Group g = new Group();
+                g.setGid(rs.getInt("gid"));
+                g.setGname(rs.getString("gname"));
+                Slot sl = new Slot();
+                sl.setSlotid(rs.getInt("slotid"));
+                sl.setSlotname(rs.getString("slotname"));
+                Session ses = new Session();
+                ses.setSessionid(rs.getInt("sessionid"));
+                ses.setDate(rs.getDate("date"));
+                ses.setGroup(g);
+                ses.setSlot(sl);
                 a.setSession(sesdb.get(ses));
                 a.setAttend(rs.getBoolean("attend"));
                 Lecture l = new Lecture();

@@ -13,12 +13,16 @@
         <servlet-class>controller.AttendanceRecordController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LectureSessionListController</servlet-name>
-        <servlet-class>controller.LectureSessionListController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ViewStudentAttendController</servlet-name>
         <servlet-class>controller.ViewStudentAttendController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewSinggleStudentAttendController</servlet-name>
+        <servlet-class>controller.ViewSinggleStudentAttendController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewGroupListController</servlet-name>
+        <servlet-class>controller.ViewGroupListController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AttendController</servlet-name>
@@ -33,12 +37,16 @@
         <url-pattern>/attendrecord</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LectureSessionListController</servlet-name>
-        <url-pattern>/lecses</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ViewStudentAttendController</servlet-name>
         <url-pattern>/stuattend</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewSinggleStudentAttendController</servlet-name>
+        <url-pattern>/viewsinglestu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewGroupListController</servlet-name>
+        <url-pattern>/grouplist</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

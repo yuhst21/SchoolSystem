@@ -64,9 +64,9 @@ public class ViewStudentAttendController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int gid = 3;
+        int gid = Integer.parseInt(request.getParameter("gid"));
         Group group = new Group();
-        group.setGid(3);
+        group.setGid(gid);
         ArrayList<Student> students = dbStudent.list(group);
         ArrayList<Attendance> attends = dbAttend.list();
         for (Student student : students) {
@@ -79,7 +79,7 @@ public class ViewStudentAttendController extends HttpServlet {
             }
         }
         request.setAttribute("students", students);
-        request.setAttribute("gid", group.getGid());
+        request.getSession().setAttribute("gid", group.getGid());
         request.getRequestDispatcher("/View/Attendance/viewstudentattend.jsp").forward(request, response);
     }
 

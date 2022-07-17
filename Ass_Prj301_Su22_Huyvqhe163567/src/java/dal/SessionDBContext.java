@@ -17,6 +17,7 @@ import model.Lecture;
 import model.Room;
 import model.Session;
 import model.Slot;
+import model.Student;
 import model.Subject;
 
 /**
@@ -76,13 +77,16 @@ public class SessionDBContext extends DBContext<Session> {
     @Override
     public ArrayList<Session> list() {
         ArrayList<Session> session = new ArrayList<>();
+        ArrayList<Student> stud = new ArrayList<>();
         try {
-            String sql = "select s.sessionid,s.roomid,r.roomname,s.slotid,sl.slotname,g.gid,g.gname,g.lid,l.lname,g.subjectid,sub.subjectname,s.[date] from [Session] s \n"
-                    + "inner join Room r on s.roomid = r.roomid\n"
-                    + "inner join Slot sl on s.slotid = sl.slotid\n"
-                    + "inner join [Group] g on s.gid = g.gid\n"
-                    + "inner join Lecture l on g.lid = l.lid\n"
-                    + "inner join [Subject] sub on g.subjectid = sub.subjectid";
+            String sql = "select s.sessionid,s.roomid,r.roomname,s.slotid,sl.slotname,g.gid,g.gname,g.lid,l.lname,g.subjectid,sub.subjectname,s.[date],stu.[sid],stu.sname,stu.scode from [Session] s \n"
+                    + "                   inner join Room r on s.roomid = r.roomid\n"
+                    + "                    inner join Slot sl on s.slotid = sl.slotid\n"
+                    + "                   inner join [Group] g on s.gid = g.gid\n"
+                    + "                    inner join Lecture l on g.lid = l.lid\n"
+                    + "                   inner join [Subject] sub on g.subjectid = sub.subjectid\n"
+                    + "				   inner join Enroll e on e.gid = g.gid\n"
+                    + "				   inner join Student stu on e.sid = g.gid";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -99,14 +103,20 @@ public class SessionDBContext extends DBContext<Session> {
                 Group g = new Group();
                 g.setGid(rs.getInt("gid"));
                 g.setGname(rs.getString("gname"));
+                Student stu = new Student();
+                stu.setSid(rs.getInt("sid"));
+                stu.setSname(rs.getString("sname"));
+                stu.setScode(rs.getString("scode"));
+                stud.add(stu);
+                g.setStu(stud);
                 Lecture l = new Lecture();
                 l.setLid(rs.getInt("lid"));
                 l.setLname(rs.getString("lname"));
-                g.setLec(ldb.get(l));
+                g.setLec(l);
                 Subject sub = new Subject();
                 sub.setSubjectid(rs.getInt("subjectid"));
                 sub.setSubjectname(rs.getString("subjectname"));
-                g.setSub(sdb.get(sub));
+                g.setSub(sub);
                 s.setGroup(g);
                 s.setDate(rs.getDate("date"));
                 session.add(s);

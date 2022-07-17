@@ -13,6 +13,15 @@
         <title>Schedule</title>   
     </head>
     <body>
+        <nav>
+            <ul>
+                <li><a href="schedule">Home</a></li>
+                <li><a href="grouplist">View Classes</a></li>
+                <li>
+
+                </li>
+            </ul>
+        </nav> 
         <form action="schedule">
             <div >
                 Campus: <select>
@@ -74,8 +83,8 @@
                                           </c:if>
                                           <c:if test="${s.status eq true}">
                                               (attended)-<a href="attendrecord?sessionID=${s.sessionid}">
-                                             View
-                                          </a>
+                                                  View
+                                              </a>
                                           </c:if>                        
                                     </c:if>
                                 </c:forEach> 

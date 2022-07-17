@@ -1,0 +1,49 @@
+<%-- 
+    Document   : viewgroup
+    Created on : Jul 17, 2022, 3:05:28 PM
+    Author     : win
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <div class="hero">
+            <nav>
+                <ul>
+                    <li><a href="schedule">Home</a></li>
+                    <li><a href="grouplist">View Classes</a></li>
+
+                </ul>
+            </nav> 
+        </div>
+
+        <div class="table-users">
+            <div class="header">List classes of lecture ${sessionScope.lecture.lid} </div>
+            <table border="1">
+                <tr>
+                    <td>No</td>
+                    <td>Group</td>
+                    <td>Lecture</td>
+                    <td>Subject</td>
+                    <td>View Attendance</td>
+                </tr>
+
+                <c:forEach items="${requestScope.groups}" var="g">
+                    <tr>
+                        <td>${groups.indexOf(g)+1}</td>
+                        <td>${g.gname}</td>
+                        <td>${g.lec.lname}</td>
+                        <td>${g.sub.subjectname}</td>
+                        <td> <a href="stuattend?gid=${g.gid}">View</a> </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+    </body>
+</html>

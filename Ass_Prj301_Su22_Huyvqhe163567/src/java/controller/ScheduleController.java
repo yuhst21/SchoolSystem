@@ -54,6 +54,7 @@ public class ScheduleController extends HttpServlet {
          sessions = sessionDB.listSessionByLecture(lec, currentWeek.getStartDate(), currentWeek.getEndDate());
         request.getSession().setAttribute("weeks", weeks);
         //set attributes
+        request.getSession().setAttribute("lecturer", lec.getLid());
         request.setAttribute("slots", slotDB.list());
         request.setAttribute("date", currentDate);
         request.setAttribute("sessions", sessions);

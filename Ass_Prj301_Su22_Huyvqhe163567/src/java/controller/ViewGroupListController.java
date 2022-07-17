@@ -4,9 +4,7 @@
  */
 package controller;
 
-import dal.AttendDBContext;
-import dal.SessionDBContext;
-import dal.StudentDBContext;
+import dal.GroupDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,19 +12,40 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import model.Attendance;
-import model.Session;
-import model.Student;
+import model.Group;
+import model.Lecture;
 
 /**
  *
  * @author win
  */
-public class AttendanceRecordController extends HttpServlet {
+public class ViewGroupListController extends HttpServlet {
 
-    SessionDBContext dbSession = new SessionDBContext();
-    StudentDBContext dbStudent = new StudentDBContext();
-    AttendDBContext dbAttendance = new AttendDBContext();
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ViewGroupListController</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ViewGroupListController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -40,23 +59,13 @@ public class AttendanceRecordController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String sid = request.getParameter("sessionID");
-        Session s = new Session();
-        s.setSessionid(Integer.parseInt(sid));
-        Session session = dbSession.get(s);
-        ArrayList<Student> students = dbStudent.list(s);
-        ArrayList<Attendance> attend = dbAttendance.list();
-        for (Student student : students) {
-            for (Attendance a : attend) {
-                if (a.getStudent().getSid() == student.getSid()) {
-                    student.getAttendance().add(a);
-                }
-            }
-        }       
-        request.setAttribute("students", students);
-        request.setAttribute("session", session);
-        request.setAttribute("attend", attend);
-        request.getRequestDispatcher("/View/Attendance/attendancerecord.jsp").forward(request, response);
+        int lid = (int) request.getSession().getAttribute("lecturer");
+        Lecture lec = new Lecture();
+        lec.setLid(lid);
+        GroupDBContext dbGroup = new GroupDBContext();
+        ArrayList<Group> groups = dbGroup.list(lec);
+        request.setAttribute("groups", groups);
+        request.getRequestDispatcher("View/Attendance/viewgroup.jsp").forward(request, response);
     }
 
     /**
@@ -70,11 +79,7 @@ public class AttendanceRecordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String sid = request.getParameter("sessionID");
-        Session s = new Session();
-        s.setSessionid(Integer.parseInt(sid));
-        Session ses = dbSession.get(s);
-        response.sendRedirect("attend?sessionID=" + ses.getSessionid());
+        processRequest(request, response);
     }
 
     /**

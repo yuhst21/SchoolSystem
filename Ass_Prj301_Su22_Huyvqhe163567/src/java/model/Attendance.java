@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author win
@@ -64,5 +66,6 @@ public class Attendance {
     public void setTaker(Lecture taker) {
         this.taker = taker;
     }
+   
 
 }

@@ -47,7 +47,6 @@ public class GroupDBContext extends DBContext<Group> {
         return null;
     }
 
-    @Override
     public ArrayList<Group> list() {
         ArrayList<Group> group = new ArrayList<>();
         try {
@@ -61,6 +60,37 @@ public class GroupDBContext extends DBContext<Group> {
                     + "inner join Student st  \n"
                     + "on e.sid = st.sid";
             PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Group g = new Group();
+                g.setGid(rs.getInt("gid"));
+                g.setGname(rs.getString("gname"));
+                Subject s = new Subject();
+                s.setSubjectid(rs.getInt("subjectid"));
+                s.setSubjectname(rs.getString("subjectname"));
+                g.setSub(s);
+                Lecture l = new Lecture();
+                l.setLid(rs.getInt("lid"));
+                l.setLname(rs.getString("lname"));
+                g.setLec(l);
+                group.add(g);
+            }
+            return group;
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Group> list(Lecture lecture) {
+        ArrayList<Group> group = new ArrayList<>();
+        try {
+            String sql = "select g.gid,g.gname,g.lid,l.lname,g.subjectid,s.subjectname from [Group] g\n"
+                    + "inner join Lecture l on g.lid = l.lid\n"
+                    + "inner join [Subject] s on s.subjectid = g.subjectid\n"
+                    + "where g.lid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, lecture.getLid());
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Group g = new Group();

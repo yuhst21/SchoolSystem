@@ -14,7 +14,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-
+        <nav>
+            <ul>
+                <li><a href="schedule">Home</a></li>
+                <li><a href="grouplist">View Classes</a></li>
+                <li>
+                   
+                </li>
+            </ul>
+        </nav> 
         <form action="attend" method="POST">
             <input type="hidden" value="${session.sessionid}" name="sessionID" />
             <p>Attendance for <b>${session.group.sub.subjectname}</b> with lecturer <b>${session.taker.lname}</b> 

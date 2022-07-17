@@ -5,22 +5,26 @@
 package Test;
 
 import dal.DateTimeHandle;
+import dal.GroupDBContext;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import model.Group;
+import model.Lecture;
 
 /**
  *
  * @author win
  */
 public class NewClass1 {
-    DateTimeHandle dt = new DateTimeHandle();
+
     public static void main(String[] args) {
-       int year = LocalDate.now().getYear() - 1;
-        ArrayList<Integer> years = new ArrayList<>();
-        for (int i = 0; i <= 3; i++) {
-            years.add(year + i);
+        Lecture lec = new Lecture();
+        lec.setLid(1);
+        GroupDBContext dbGroup = new GroupDBContext();
+        ArrayList<Group> groups = dbGroup.list(lec);
+        for (Group group : groups) {
+            System.out.println(group.getLec().getLname());
         }
-        System.out.println(years);
     }
-    
+
 }
