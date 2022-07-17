@@ -14,6 +14,16 @@ public class Lecture {
     private boolean lgender;
     private String lcontract;
     private Department dept;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
 
     public int getLid() {
         return lid;

@@ -19,7 +19,7 @@ import model.Lecture;
  *
  * @author win
  */
-public class ViewGroupListController extends HttpServlet {
+public class ViewGroupListController extends BaseRequiredAuthenticationController {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,7 +57,7 @@ public class ViewGroupListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int lid = (int) request.getSession().getAttribute("lecturer");
         Lecture lec = new Lecture();
@@ -77,7 +77,7 @@ public class ViewGroupListController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

@@ -23,14 +23,7 @@
                 </li>
             </ul>
         </nav> 
-        <form action="schedule">
-            <div class="body-content">
-                Campus: <select>
-                    <option> FU-HL</option>
-                </select>  </br>
-                Lecture: <input type="text" name="lecture" value="sonnt"> 
-                <input type="submit" value="View"> </div>
-        </form>
+     
 
         <form action="schedule" method="POST" id="schedule_form">
             <div class="body-content1">
@@ -76,7 +69,7 @@
                                 <td style="width:12%">
                                     <c:forEach items="${requestScope.sessions}" var="s">
                                         <c:if test="${s.slot.slotid eq slot.slotid and 
-                                                      requestScope.week.startDate.plusDays(i) eq s.date.toLocalDate()}">
+                                                      requestScope.week.startDate.plusDays(i) eq s.date.toLocalDate()}">                                            
                                               <a href="attend?sessionID=${s.sessionid}">
                                                   ${s.group.sub.subjectname}
                                               </a> - <br/> at ${s.room.roomname} <br/> 

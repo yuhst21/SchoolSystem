@@ -11,10 +11,20 @@ import java.util.ArrayList;
  * @author Ngo Tung Son
  */
 public class Account {
+
     private String username;
     private String password;
     private String displayName;
+    private int userid;
     private ArrayList<Role> roles = new ArrayList<>();
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
 
     public ArrayList<Role> getRoles() {
         return roles;
@@ -47,5 +57,5 @@ public class Account {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
-    
+
 }

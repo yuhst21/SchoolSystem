@@ -21,7 +21,7 @@ import model.Student;
  *
  * @author win
  */
-public class ViewStudentAttendController extends HttpServlet {
+public class ViewStudentAttendController extends BaseRequiredAuthenticationController {
 
     StudentDBContext dbStudent = new StudentDBContext();
     AttendDBContext dbAttend = new AttendDBContext();
@@ -62,7 +62,7 @@ public class ViewStudentAttendController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int gid = Integer.parseInt(request.getParameter("gid"));
         Group group = new Group();
@@ -92,7 +92,7 @@ public class ViewStudentAttendController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

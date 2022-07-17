@@ -43,7 +43,7 @@ public class AuthenticationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("view/account/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/View/Control/login.jsp").forward(request, response);
     } 
 
     /** 
@@ -63,7 +63,7 @@ public class AuthenticationController extends HttpServlet {
         if(account!=null)
         {
             request.getSession().setAttribute("account", account);
-            response.getWriter().println("hello "+ account.getDisplayName());
+            response.sendRedirect("schedule");
         }
         else
         {

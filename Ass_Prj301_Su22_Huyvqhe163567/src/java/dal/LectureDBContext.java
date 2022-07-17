@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
+
 import model.Department;
 import model.Lecture;
 
@@ -67,6 +69,28 @@ public class LectureDBContext extends DBContext<Lecture> {
                 l.setDept(d);
                 return l;
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(LectureDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Lecture getLectureAccount(Account user) {
+        try {
+            String sql = "select l.lid,l.lname,l.username from Lecture l\n"
+                    + "                    inner join Account a on l.lid = a.userid\n"
+                    + "                    where l.lid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, user.getUserid());
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Lecture l = new Lecture();
+                l.setLid(rs.getInt("lid"));
+                l.setLname(rs.getString("lname"));
+                l.setUsername(rs.getString("username"));
+                return l;
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(LectureDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }

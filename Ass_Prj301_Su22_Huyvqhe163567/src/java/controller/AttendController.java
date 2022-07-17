@@ -22,7 +22,7 @@ import model.Student;
  *
  * @author win
  */
-public class AttendController extends HttpServlet {
+public class AttendController extends BaseRequiredAuthenticationController {
 
     SessionDBContext dbSession = new SessionDBContext();
     StudentDBContext dbStudent = new StudentDBContext();
@@ -38,7 +38,7 @@ public class AttendController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String sid = request.getParameter("sessionID");
         Session s = new Session();
@@ -68,7 +68,7 @@ public class AttendController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String sesid = request.getParameter("sessionID");
         Session s = new Session();
