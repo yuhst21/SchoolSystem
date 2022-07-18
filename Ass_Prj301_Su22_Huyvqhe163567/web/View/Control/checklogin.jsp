@@ -20,7 +20,7 @@
                 document.getElementById('timer').innerHTML = count;
                 if(count <= 0)
                 {
-                    window.location.href = '';
+                    window.location.href = 'login';
                 }
             }
             setInterval(redirect,1000);

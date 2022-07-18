@@ -18,6 +18,7 @@
             <ul>
                 <li><a href="schedule">Home</a></li>
                 <li><a href="grouplist">View Classes</a></li>
+               
                 <li style="float:right">
                     <c:if test="${sessionScope.account ne null}">
                         <a href="logout">Logout</a>
@@ -26,13 +27,15 @@
                         <a href="login">Login</a>
                     </c:if>
                 </li>
+                 <li style="float:right"><a>${sessionScope.acc.username}</a></li> 
             </ul>
         </nav> 
 
-
+        
+        </form>
         <form action="schedule" method="POST" id="schedule_form">
             <div class="body-content1">
-                <table border="1" style="width:70% " >
+                <table class="responstable" >
                     <tr style="height: 40px">
                         <td rowspan="2" style="width:15%">
                             Year: <select id="id">
@@ -79,10 +82,10 @@
                                                   ${s.group.sub.subjectname}
                                               </a> - <br/> at ${s.room.roomname} <br/> 
                                               <c:if test="${s.status ne true}">
-                                                  (not yet)
+                                                 <div style="color: gainsboro"> (not yet)</div>
                                               </c:if>
                                               <c:if test="${s.status eq true}">
-                                                  (attended)-<a href="attendrecord?sessionID=${s.sessionid}">
+                                                  <div style="color: green">(attended)</div>-<a href="attendrecord?sessionID=${s.sessionid}">
                                                       View
                                                   </a>
                                               </c:if>                        

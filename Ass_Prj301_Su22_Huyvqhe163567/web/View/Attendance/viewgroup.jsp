@@ -27,13 +27,14 @@
                             <a href="login">Login</a>
                         </c:if>
                     </li>
+                    <li style="float:right"><a>${sessionScope.acc.username}</a></li> 
                 </ul>
             </nav> 
         </div>
+                <div class="header"><h1>List classes of lecture ${sessionScope.lecture.lid}</h1> </div>
+        <div >
 
-        <div class="table-users">
-            <div class="header">List classes of lecture ${sessionScope.lecture.lid} </div>
-            <table border="1">
+            <table class="responstable">
                 <tr>
                     <td>No</td>
                     <td>Group</td>

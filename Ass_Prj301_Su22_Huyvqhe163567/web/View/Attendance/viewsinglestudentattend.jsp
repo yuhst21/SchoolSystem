@@ -26,9 +26,10 @@
                         <a href="login">Login</a>
                     </c:if>
                 </li>
+                 <li style="float:right"><a>${sessionScope.acc.username}</a></li> 
             </ul>
         </nav> 
-        <table border="1" style="width:30%">
+        <table class="responstable">
             <tr id="head" style="height:25px">
                 <td>No</td>
                 <td>Group</td>
@@ -46,10 +47,10 @@
                     <td>${att.session.date}</td>
                     <td>
                         <c:if test="${att.attend eq true}">
-                            Present
+                            <div style="color: green">Present</div> 
                         </c:if>
                         <c:if test="${att.attend ne true}">
-                            Absent
+                            <div style="color: red">Absent</div>
                         </c:if>
                     </td>
                 </tr>

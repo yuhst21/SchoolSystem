@@ -27,9 +27,10 @@
                         <a href="login">Login</a>
                     </c:if>
                 </li>
+                 <li style="float:right"><a>${sessionScope.acc.username}</a></li> 
             </ul>
         </nav> 
-        <table border="1" style="width:30%"> 
+        <table class="responstable"> 
             <tr id="head" style="height:25px">
                 <td style="width:3%">No</td>
                 <td>Group</td>

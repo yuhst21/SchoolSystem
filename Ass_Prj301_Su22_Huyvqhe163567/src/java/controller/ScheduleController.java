@@ -57,7 +57,7 @@ public class ScheduleController extends BaseRequiredAuthenticationController {
          sessions = sessionDB.listSessionByLecture(lec, currentWeek.getStartDate(), currentWeek.getEndDate());
         request.getSession().setAttribute("weeks", weeks);
         //set attributes
-        request.setAttribute("acc", user);
+        request.getSession().setAttribute("acc", user);
         request.getSession().setAttribute("lecturer", lec.getLid());
         request.setAttribute("slots", slotDB.list());
         request.setAttribute("date", currentDate);

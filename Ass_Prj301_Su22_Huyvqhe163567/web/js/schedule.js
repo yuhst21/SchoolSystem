@@ -6,3 +6,7 @@ function Select() {
     let form = document.getElementById("schedule_form");
     form.submit();
 }
+
+
+
+

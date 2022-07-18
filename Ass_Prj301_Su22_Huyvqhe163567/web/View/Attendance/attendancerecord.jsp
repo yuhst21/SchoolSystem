@@ -27,13 +27,14 @@
                             <a href="login">Login</a>
                         </c:if>
                     </li>
+                     <li style="float:right"><a>${sessionScope.acc.username}</a></li> 
             </ul>
         </nav> 
         <form action="attend" method="POST">
             <input type="hidden" value="${session.sessionid}" name="sessionID" />
             <p>Attendance for <b>${session.group.sub.subjectname}</b> with lecturer <b>${session.taker.lname}</b> 
                 at ${session.slot.slotname} on ${session.date} ,${session.room.roomname}</p>
-            <table border="2">
+            <table class="responstable">
                 <tr>
                     <td>No</td>
                     <td>Group</td>
@@ -63,10 +64,10 @@
                         </td>         
                         <td> 
                             <c:if test="${stu.stuAttend(session)}">
-                                present
+                               <p style="color: green">present</p> 
                             </c:if>                                       
                             <c:if test="${!stu.stuAttend(session)}">
-                                absent
+                                <p style="color: red">absent</p>
                             </c:if>
                         </td>
                         <td></td>
